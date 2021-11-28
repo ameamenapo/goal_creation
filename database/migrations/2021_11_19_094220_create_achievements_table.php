@@ -14,11 +14,12 @@ class CreateAchievementsTable extends Migration
     public function up()
     {
         Schema::create('achievements', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('theme');
-            $table->integer('progress');
+            $table->integer('progress')->default(0);
             $table->foreignId('user_id')->constrained();
             $table->foreignId('goal_id')->references('id')->on('goals'); 
+            //$table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

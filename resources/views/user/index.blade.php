@@ -33,7 +33,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
+          <a class="btn" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -59,14 +59,16 @@
         <p><a class=movePage  href="{{action('GoalController@add') }}">目標を作成する</a></p>
         <p><a class=movePage  href="{{action('GoalController@choose') }}">目標を選ぶ</a></p>
         <p><a class=movePage  href="{{action('GoalController@index') }}">目標一覧</a></p>
-        <p>達成した目標</p>
+        <p><a class=movePage  href="{{action('AchievementController@index') }}">達成した目標</p>
         <p>交流</p>
+        <p><a class=movePage  href="#">プロフィール編集</p>
         
     </div>
         
         
     
     <footer>
+        <p><a href="{{route('user.edit') }}?id={{optional($user)->id}}">会員情報編集</a></p>
         <p>退会する</p>
     </footer>
 </body>

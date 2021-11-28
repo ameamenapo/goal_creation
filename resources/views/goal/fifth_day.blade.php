@@ -33,7 +33,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログイン</a>
+          <a class="btn" href=" ">ログイン</a>
         </div>
         <div class="header-list">
             <ul>
@@ -48,55 +48,43 @@
         
         
     <div class=main>
-        <h1>今日の目標</h1> 
+        <h1>今日の目標</h1>
+        <p>{{$msg}}</p>
         <p>テーマ</p>
         <table>
-            @csrf
-        @foreach($items as $item)
+        @csrf
+       
         <tr>
-            <input type="hidden" name="id" value="{{$item->id}}">
-            <input type="hidden" name="first_day" value="{{$item->first_day}}">
-            <input type="hidden" name="second_day" value="{{$item->second_day}}">
-            <input type="hidden" name="third_day" value="{{$item->third_day}}">
-            <input type="hidden" name="fourth_day" value="{{$item->fourth_day}}">
-            <input type="hidden" name="fifth_day" value="{{$item->fifth_day}}">
-            <input type="hidden" name="sixth_day" value="{{$item->sixth_day}}">
-            <input type="hidden" name="seventh_day" value="{{$item->seventh_day}}">
-            <td>{{$item->theme}}</td>
+            
+            <td>{{optional($item)->theme}}</td>
+             
         </tr>
-        @endforeach
+       
         </table>
         
-        <p>{{$msg}}やること</p>
-        <form action="/goal/today_goal" method="post"> 
+        <p>５日目：やること</p>
+        <form action="/goal/fifth_day" method="post"> 
         @csrf
         <table>
-        @foreach($items as $item)
+        
         <tr>
-            <input type="hidden" name="id" value="{{$item->id}}">
-            <input type="hidden" name="theme" value="{{$item->theme}}">
-            <input type="hidden" name="second_day" value="{{$item->first_day}}">
-            <input type="hidden" name="third_day" value="{{$item->second_day}}">
-            <input type="hidden" name="fourth_day" value="{{$item->third_day}}">
-            <input type="hidden" name="fifth_day" value="{{$item->fourth_day}}">
-            <input type="hidden" name="sixth_day" value="{{$item->sixth_day}}">
-            <input type="hidden" name="seventh_day" value="{{$item->seventh_day}}">
            
-            <td><input type="hidden" name="first_day" value="{{$item->id}}">{{$item->fifth_day}}</td>
-            {{--ここでacievementテーブルのprogressの値によって表示する内容を変えたい。--}}
+
+            <td><input type="hidden" name="todo" value="{{optional($item)->id}}">{{optional($item)->fifth_day}}</td>
+           
             
         </tr>
-        @endforeach
+        
         
                 {{--<li><a  href="{{action('AchievementController@index') }}">やったよ</a></li>
                 <li><a  href=" ">やらなかった</a></li>--}}
             <tr><th></th><td><input type="submit" value="やったよ"></td></tr>
-            <tr><th></th><td><input type="submit" value="やらなかった"></td></tr>
+            {{--<tr><th></th><td><input type="submit" value="やらなかった"></td></tr>--}}
         </table>
         </form>
             
         <div class="btn-wrapper">
-            <a href="/goal" class="btn facebook">目標一覧へ</a>
+            <a href="/goal" class="btn">目標一覧へ</a>
         </div>  
     </div>
         

@@ -32,7 +32,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログイン</a>
+          <a class="btn" href=" ">ログイン</a>
         </div>
         <div class="header-list">
             <ul>
@@ -47,39 +47,18 @@
         
         
     <div class=main>
-        <h1>目標達成状況</h1> 
-        <p>テーマ</p>{{--acievementsテーブルのprogressの値によって、表示する内容を変えたい。--}}
+        <h1>達成した目標テーマ</h1> 
         <table>
-        @csrf
         @foreach($items as $item)
         <tr>
-            {{--<td>{{optional($item)->theme}}</td>--}}
             <td>{{optional($item)->theme}}</td>
-             
         </tr>
-        @endforeach
+        @endforeach 
         </table>
         
-        @if ($items->progress === 1)
-        <p>１日目：{{$msg}}</p>
-        @elseif ($items->progress === 2)
-        <p>２日目：{{$msg}}</p>
-        @elseif ($items->progress === 3)
-        <p>３日目：{{$msg}}</p>
-        @elseif ($items->progress === 4)
-        <p>４日目：{{$msg}}</p>
-        @elseif ($items->progress === 5)
-        <p>５日目：{{$msg}}</p>
-        @elseif ($items->progress === 6)
-        <p>６日目：{{$msg}}</p>
-        @else
-        <p>７日目：{{$msg}}</p>
-        @endif
         <div class="btn-wrapper">
-            <a href="/goal" class="btn facebook">目標一覧へ</a>
-        </div>  
-        
-        
+            <a href="/user" class="btn">マイページへ</a>
+        </div>     
     </div>
         
         

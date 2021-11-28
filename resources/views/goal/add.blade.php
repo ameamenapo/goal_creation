@@ -32,7 +32,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
+          <a class="btn" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -64,7 +64,8 @@
     </form>
 
         <div class="btn-wrapper">
-            <a href="/goal" class="btn facebook">目標一覧へ</a>
+            <a href="/goal/list2" class="btn">自分の作成した目標たち</a>
+            <a href="/goal" class="btn">目標一覧へ</a>
         </div>
     </div>
      

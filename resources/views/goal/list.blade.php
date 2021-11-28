@@ -31,7 +31,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
+          <a class="btn" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -47,12 +47,18 @@
         
     <div class=main>
         <h1>目標を選ぶ</h1>
-        <a class="login" href="{{action('GoalController@choose1') }}">アプリオリジナル目標</a>
-        <a class="login" href="{{ action('GoalController@choose2') }}">自分で作成した目標</a>
-        <a class="login" href="{{ action('GoalController@choose3') }}">他のユーザーが作成した目標</a>
-       
+        <a class="btn" href="{{action('GoalController@choose1') }}">アプリオリジナル目標</a>
+        <a class="btn" href="{{ action('GoalController@choose2') }}">自分で作成した目標</a>
+        <a class="btn" href="{{ action('GoalController@choose3') }}">他のユーザーが作成した目標</a>
+    
+    <div class="btn-wrapper">    
+        <a href="/user" class="btn">マイページへ</a>
     </div>
+    </div>
+    
    
+   
+    
     
         
     

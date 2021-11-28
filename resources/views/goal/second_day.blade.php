@@ -33,7 +33,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログイン</a>
+          <a class="btn" href=" ">ログイン</a>
         </div>
         <div class="header-list">
             <ul>
@@ -53,35 +53,28 @@
         <p>テーマ</p>
         <table>
         @csrf
-        @foreach($items as $item)
+       
         <tr>
             
             <td>{{optional($item)->theme}}</td>
              
         </tr>
-        @endforeach
+        
         </table>
         
         <p>２日目：やること</p>
         <form action="/goal/second_day" method="post"> 
         @csrf
         <table>
-        @foreach($items as $item) 
+        
         <tr>
-            <input type="hidden" name="id" value="{{optional($item)->id}}">
-            <input type="hidden" name="theme" value="{{optional($item)->theme}}">
-            <input type="hidden" name="second_day" value="{{optional($item)->first_day}}">
-            <input type="hidden" name="third_day" value="{{optional($item)->third_day}}">
-            <input type="hidden" name="fourth_day" value="{{optional($item)->fourth_day}}">
-            <input type="hidden" name="fifth_day" value="{{optional($item)->fifth_day}}">
-            <input type="hidden" name="sixth_day" value="{{optional($item)->sixth_day}}">
-            <input type="hidden" name="seventh_day" value="{{optional($item)->seventh_day}}">
+           
 
-            <td><input type="hidden" name="first_day" value="{{optional($item)->id}}">{{optional($item)->second_day}}</td>
+            <td><input type="hidden" name="todo" value="{{optional($item)->id}}">{{optional($item)->second_day}}</td>
            
             
         </tr>
-        @endforeach
+        
         
                 {{--<li><a  href="{{action('AchievementController@index') }}">やったよ</a></li>
                 <li><a  href=" ">やらなかった</a></li>--}}
@@ -91,7 +84,7 @@
         </form>
             
         <div class="btn-wrapper">
-            <a href="/goal" class="btn facebook">目標一覧へ</a>
+            <a href="/goal" class="btn">目標一覧へ</a>
         </div>  
     </div>
         

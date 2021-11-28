@@ -32,7 +32,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
+          <a class="btn" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -67,6 +67,8 @@
         <tr><th></th><td><input type="submit" value="目標一覧へ追加"></td></tr>
         </table>
         </form>
+        <a href="/goal/list" class="btn">他の目標を見る</a>
+        <a href="/goal" class="btn">目標一覧へ</a>
     </div>
    
     

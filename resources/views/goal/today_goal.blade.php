@@ -33,7 +33,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログイン</a>
+          <a class="btn" href=" ">ログイン</a>
         </div>
         <div class="header-list">
             <ul>
@@ -48,7 +48,8 @@
         
         
     <div class=main>
-        <h1>今日の目標</h1> 
+        <h1>今週の目標</h1> 
+        <p>{{$msg}}</p>
         <p>テーマ</p>
         <table>
         @csrf
@@ -68,21 +69,18 @@
         <table>
         @foreach($items as $item) {{--property id not objectとかエラー出たから、optional()を足した。また、その一つ手前の作業ではtoday_goalアクションでgetじゃなくfirstで①行目のデータを取得するようにした。--}}
             <tr><td><a href="{{ route('goal.first_day') }}?id={{optional($item)->id}}">{{optional($item)->first_day}}</a></td></tr>
-            {{--<tr><td><a href="{{ action('GoalController@first_day') }}">{{optional($item)->first_day}}</a></td></tr>--}}
             <tr><td><a href="{{ route('goal.second_day') }}?id={{optional($item)->id}}">{{optional($item)->second_day}}</a></td></tr>
-            <tr><td>{{optional($item)->third_day}}</td></tr>
-            <tr><td>{{optional($item)->fourth_day}}</td></tr>
-            <tr><td>{{optional($item)->fifth_day}}</td></tr>
-            <tr><td>{{optional($item)->sixth_day}}</td></tr>
-            <tr><td>{{optional($item)->seventh_day}}</td></tr>
-        
-            {{--<td><input type="hidden" name="first_day" value="{{optional($item)->id}}">{{optional($item)->first_day}}</td>--}}
+            <tr><td><a href="{{ route('goal.third_day') }}?id={{optional($item)->id}}">{{optional($item)->third_day}}</td></tr>
+            <tr><td><a href="{{ route('goal.fourth_day') }}?id={{optional($item)->id}}">{{optional($item)->fourth_day}}</td></tr>
+            <tr><td><a href="{{ route('goal.fifth_day') }}?id={{optional($item)->id}}">{{optional($item)->fifth_day}}</td></tr>
+            <tr><td><a href="{{ route('goal.sixth_day') }}?id={{optional($item)->id}}">{{optional($item)->sixth_day}}</td></tr>
+            <tr><td><a href="{{ route('goal.seventh_day') }}?id={{optional($item)->id}}">{{optional($item)->seventh_day}}</td></tr>
         @endforeach
         </table>
         </form>
             
         <div class="btn-wrapper">
-            <a href="/goal" class="btn facebook">目標一覧へ</a>
+            <a href="/goal" class="btn">目標一覧へ</a>
         </div>  
     </div>
         

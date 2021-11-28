@@ -31,7 +31,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
+          <a class="btn" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -52,18 +52,22 @@
         <table>
         @csrf
         <tr>目標テーマ一覧</tr>
-        <!-- <input type="hidden" name="sample" value="sample" /> -->
-       
-        @foreach($items as $item)
+        @foreach($items as $item) 
         <tr>
-            <input type="hidden" name="id" value="{{$item->id}}">
-            <td><label><input type="checkbox" name="theme" value="{{$item->theme}}">{{$item->theme}}</label></td>
+           
+            <label style="display:block;">
+                <input type="radio"  name="theme" value="{{$item->id}}">{{$item->theme}}
+            </label>
+            
         </tr>
-        @endforeach
+       @endforeach
             <tr><th></th><td><input type="submit" value="削除"></td></tr>
-        
         </table>
         </form>
+        
+        <div class="btn-wrapper">
+            <a href="/goal" class="btn">戻る</a>
+        </div> 
     </div>
         
         

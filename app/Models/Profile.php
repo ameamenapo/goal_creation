@@ -5,32 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Achievement extends Model
+class Profile extends Model
 {
     use HasFactory;
     
-    protected $fillable = [
-        'theme',
-        'progress',
+     protected $fillable = [
+        'nickname',
+        'age',
+        'hobby',
+        'a_word',
         'created_at',
         'updated_at',
-        'user_id',
-        'goal_id',
-        
-        
-        ];
+    ];
+    
     protected $guarded = [
         'id',
-        
-];
+        'user_id',
+    ];
     
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    
-     public function goals()
-    {
-        return $this->hasMany('App\Goal');
     }
 }

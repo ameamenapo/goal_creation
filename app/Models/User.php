@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Achievement');
     }
+    
+    public function profile()
+    {
+        return $this->belongsTo('App\Models\Profile');
+    }
 }

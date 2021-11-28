@@ -24,7 +24,7 @@ class Goal_listsTableSeeder extends Seeder
             'fifth_day' => 'ありがとうと２回言う',
             'sixth_day' => 'さようならと言う',
             'seventh_day' => 'おやすみなさいと言う',
-            'user_id' => 4,
+            'user_id' => 1,
         ];
         DB::table('goal_lists')->insert($param);
         
@@ -38,7 +38,7 @@ class Goal_listsTableSeeder extends Seeder
             'fifth_day' => '買い物したことないパン屋でパンを買ってみる',
             'sixth_day' => '電車で１０分以上かかる滅多に降りない駅で降りて、探索してみる',
             'seventh_day' => '憧れのあの人が行ってそうな場所を妄想し、そこに行ってみる',
-            'user_id' => 4,
+            'user_id' => 1,
         ];
         DB::table('goal_lists')->insert($param);
         
@@ -52,7 +52,7 @@ class Goal_listsTableSeeder extends Seeder
             'fifth_day' => '本屋に行き、今売れている本を一冊買う',
             'sixth_day' => '朝食をいつもより丁寧に食べる',
             'seventh_day' => '今週の自分を褒めてみる',
-            'user_id' => 4,
+            'user_id' => 1,
         ];
         DB::table('goal_lists')->insert($param);
             

@@ -20,10 +20,12 @@ class GoalController extends Controller
      */
     public function index(Request $request, Goal $goal)
     {
+        $user_id = Auth::id(); 
         // モデルファイルを使っていない。
         // MVC それぞれでファイルが分かれる。
-        $items = Goal::all();
-        
+        $items = Goal::where('user_id', $user_id)->get();
+        //var_dump($items);
+        //var_dump($user_id);
         // リダイレクトについて
         // 別のURLへ遷移、移動させること
         // Googleへ飛ぶ
@@ -94,10 +96,19 @@ class GoalController extends Controller
      * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
+ 
+    
     public function edit(Request $request)
     {
-        $items = Goal_list::find($request->id);
-        return view('goal.edit', ['item' => $items]);
+        //$user_id = Auth::id();
+        //$items = Goal_list::where('user_id', $user_id)->first();
+    
+        
+        $item = Goal_list::find($request->id);
+        var_dump($item);
+        $msg = '目標を編集してください。';
+        return view('goal.edit', compact('item','msg'));
+        
     }
 
     /**
@@ -109,6 +120,7 @@ class GoalController extends Controller
      */
     public function update(Request $request, Goal_list $goal_list)
     {
+        
         $param = [
             'id' => $request->id,
             'theme' => $request->theme,
@@ -120,12 +132,14 @@ class GoalController extends Controller
             'sixth_day' => $request->sixth_day,
             'seventh_day' => $request->seventh_day,
         ];
-        
+        var_dump($param);
         $goal_list = Goal_list::find($request->id);
         $form = $request->all();
         unset($form['_token']);
         $goal_list->fill($form)->save();
-        return view('goal.add', ['msg'=>'目標を編集しました！']);
+        $item = Goal_list::find($request->id);
+        $msg = '目標を編集しました！';
+        return view('goal.edit', compact('item','msg'));
     }
     
 
@@ -169,7 +183,7 @@ class GoalController extends Controller
         // 条件:
         // ログインユーザー以外の人が作った目標
         $user_id = Auth::id();
-        $items = Goal_list::where('user_id', '!=', $user_id)->where('user_id', '!=', 4 )->get();
+        $items = Goal_list::where('user_id', '!=', $user_id)->where('user_id', '!=', 1 )->get();
         //var_dump($items);
         //$items = Goal_list::where('user_id', '<>', $user_id)->get();の方が対応しているDB多いらしい。
         return view('goal.list3', ['items' => $items]);
@@ -226,17 +240,19 @@ class GoalController extends Controller
         //];
         $goal = new Goal;
         $goal->fill($form)->save();
-        $items = Goal::all();
+        $user_id = Auth::id(); 
+        $items = Goal::where('user_id', $user_id)->get();
         //var_dump($items);
         return view('goal.index', compact('items'));
-       
         
     }
     
     public function delete(Request $request, Goal $goal)
-    {
-        $items = Goal::where('id', $request->id)->get(); //->get();をたすと。例えばdel_list?id=6でゲットアクセスした際に、ちゃんとそのidのテーマがチェックボックス付きで現れた。
-        // var_dump($items);
+    {   
+        $user_id = Auth::id();
+        //$items = Goal::where('id', $request->id)->get(); //->get();をたすと。例えばdel_list?id=6でゲットアクセスした際に、ちゃんとそのidのテーマがチェックボックス付きで現れた。
+        $items = Goal::where('user_id', $user_id)->get();
+        //var_dump($items);
         //return view('goal.del_list', compact('items'));
         return view('goal.del_list', ['items' => $items]);
     }
@@ -245,98 +261,82 @@ class GoalController extends Controller
     {
         // $request はユーザーが入力した、送っている情報
         //var_dump($request->all());
-        $items = Goal::find($request->id);
-        Goal::destroy($request->id);
-        var_dump($items);
-        //$items = $request->all();
-        //return view('goal.index', compact('items'));
-        //return view('goal.index', ['items' => $items]);ここら辺のコードはどれも上手くいかなかった。redirect文にしたら無事goal.indexを表示できた。
+        Goal::destroy($request->theme);
         return redirect('/goal');
     }
     
     public function today_goal(Request $request)
     {
         $items = Goal::where('id',$request->id)->get();
+        $msg = '';
         var_dump($items);
-        return view('goal.today_goal', compact('items'));//この３行は無難に動くやつ。しかしachieevementインスタンス（progress=0）を作らない。
-        //$items = Goal::where('id',$request->id)->first();
-        //$form = [
-            //'theme' => $items->theme,
-            //'progress' => 0,
-            //'user_id' => Auth::id(), // user_idはログインユーザーのIDを取得する
-            //'goal_id' => $items->id,
-       // ];
-        //var_dump($form);
-        //$achievement = new Achievement;
-        //$achievement->fill($form)->save();
-        ////$items = Achievement::find($request->first_day);
-        //var_dump($items);
-        //return view('goal.today_goal', compact('items')); 
+        return view('goal.today_goal', compact('items', 'msg'));
+        
     }
     
     public function first_day(Request $request)
     {
-        $items = Goal::where('id',$request->id)->get();
+        $item = Goal::where('id',$request->id)->first();
+        //$items = Goal::where('id',$request->id)->get();
         $msg = '';
-        var_dump($items);
-        return view('goal.first_day', compact('items','msg'));     
+        var_dump($item);
+        return view('goal.first_day', compact('item','msg')); 
+        //return view('goal.first_day', compact('items','msg'));     
     }
     
     public function second_day(Request $request)
     {
-        $items = Goal::where('id',$request->id)->get();
+        $item = Goal::where('id',$request->id)->first();
+        //$items = Goal::where('id',$request->id)->get();
         $msg = '';
-        var_dump($items);
-        return view('goal.second_day', compact('items','msg'));     
+        //var_dump($items);
+        return view('goal.second_day', compact('item','msg')); 
+        //return view('goal.second_day', compact('items','msg'));     
     }
     
-    //以下からした、$msg='７日目：'とか書いてあるあたりまで前に作ったtoday_goalコントローラ。'
-    //public function today_goal(Request $request)//ここでAchievementテーブルから同じgoal_iidのレコード取得して、一緒にgoal.today_goalビューに渡したい！
-    //{
-        //$items = Goal::where('id',$request->id)->first();
-        
-        //$form = [
-            //'theme' => $items->theme,
-            //'progress' => 0,
-            //'user_id' => Auth::id(), // user_idはログインユーザーのIDを取得する
-            //'goal_id' => $items->id,
-        //];
-        //var_dump($form);
-        //$achievement = new Achievement;
-        //$achievement->fill($form)->save();
-        //以下の、$data=Achievement〜というコード、->getにするとエラーが出るので、firstじゃないとダメみたい。
-        //$data = Achievement::where('goal_id',$request->id)->first(); //これと次の行のは足したコード。この二行消して一番下のreturn〜復活させれば動く。
-        //var_dump($data);
-        //if($data->progress ===0){
-            //$items = Goal::where('id',$request->id)->get();
-            //var_dump($items);
-            //$msg ='１日目：';
-            //return view('goal.today_goal', compact('items','msg'));
-        //}
-        //elseif($data->progress ===1) {
-            //$msg ='２日目：';
-            //return view('goal.second_day',compact('items','msg'));    
-        //}
-        //elseif($data->progress ===2) {
-            //$msg ='３日目：';
-            //return view('goal.third_day',compact('items','msg'));    
-        //}
-        //elseif($data->progress ===3) {
-            //$msg ='４日目：';
-            //return view('goal.third_day',compact('items','msg'));    
-        //}
-        //elseif($data->progress ===4) {
-            //$msg ='５日目：';
-            //return view('goal.third_day',compact('items','msg'));    
-        //}
-        //elseif($data->progress ===5) {
-            //$msg ='６日目：';
-            //return view('goal.third_day',compact('items','msg'));    
-        //}
-        //else {
-            //$msg ='７日目：';
-            //return view('goal.third_day',compact('items','msg'));    
-        //}
-       
-    //} //ここまで前に作ったgoal_todayアクション
+    public function third_day(Request $request)
+    {
+        $item = Goal::where('id',$request->id)->first();
+        //$items = Goal::where('id',$request->id)->get();
+        $msg = '';
+        var_dump($item);
+        return view('goal.third_day', compact('item','msg'));
+        //return view('goal.third_day', compact('items','msg'));     
+    }
+    
+    public function fourth_day(Request $request)
+    {
+        $item = Goal::where('id',$request->id)->first();
+        //$items = Goal::where('id',$request->id)->get();
+        $msg = '';
+        //var_dump($items);
+        return view('goal.fourth_day', compact('item','msg'));
+        //return view('goal.fourth_day', compact('items','msg'));     
+    }
+    
+    public function fifth_day(Request $request)
+    {
+        $item = Goal::where('id',$request->id)->first();
+        $msg = '';
+        //var_dump($items);
+        return view('goal.fifth_day', compact('item','msg'));     
+    }
+    
+    public function sixth_day(Request $request)
+    {
+        $item = Goal::where('id',$request->id)->first();
+        $msg = '';
+        //var_dump($items);
+        return view('goal.sixth_day', compact('item','msg'));     
+    }
+    
+    public function seventh_day(Request $request)
+    {
+        $item = Goal::where('id',$request->id)->first();
+        $msg = '';
+        //var_dump($items);
+        return view('goal.seventh_day', compact('item','msg'));     
+    }
+    
+    
 }

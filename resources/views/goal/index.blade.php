@@ -7,6 +7,8 @@
     body { font-family: "Avenir Next"; }
     header { background-color: #ffc0cb; height: 170px; }
     .main { background-color: #deb887; height: 1000px; }
+    .movePage { font-size: 20pt; text-align: leftt; color: white;
+        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
     footer { background-color: #ffc0cb; height: 90px; }
     h1 { font-size: 50pt; text-align: left; color: white;
         margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
@@ -31,7 +33,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
+          <a class="btn" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -46,11 +48,12 @@
         
         
    <div class=main>
-        <h1>目標一覧</h1>
-        <p>目標達成一覧へ</p>
+        <h1>目標テーマ一覧</h1>
+        <p>今週はどの目標にする？選んでね！</p>
+    
         <form action="/goal" method="post">
         <table>
-        <tr>目標テーマ一覧</tr>
+        
          @foreach($items as $item)
         <tr>
             <input type="hidden" name="id" value="{{optional($item)->id}}">
@@ -69,7 +72,9 @@
         
         </table>
         </form>
-        <a class="login" href="{{action('GoalController@delete')}}">一覧から目標を削除</a>
+        <a class="btn" href="/goal/list">目標を追加する</a>
+        <a class="btn" href="/goal/del_list">一覧から目標を削除</a>
+        <a class="btn" href="/user">マイページへ</a>
     </div>
 
         

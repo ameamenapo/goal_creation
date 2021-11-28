@@ -14,9 +14,8 @@ class CreateGoalListsTable extends Migration
     public function up()
     {
         Schema::create('goal_lists', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('created_user_id');
-            $table->integer('classification');
+            $table->bigIncrements('id');
+            $table->integer('classification')->default(2);
             $table->string('theme');
             $table->string('first_day');
             $table->string('second_day');

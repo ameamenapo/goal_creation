@@ -31,7 +31,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
+          <a class="btn" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -56,14 +56,20 @@
         <tr>
             
             <label style="display:block;">
-                <input type="radio"  name="theme" value="{{$item->id}}">{{$item->theme}}
+                <input type="radio"  name="theme" value="{{optional($item)->id}}">{{optional($item)->theme}}
+                <a href="{{ route('goal.edit') }}?id={{ optional($item)->id }}">編集</a><br>
             </label>
             
         </tr>
         @endforeach
-        <tr><th></th><td><input type="submit" value="目標一覧へ追加"></td></tr>
+        <tr><th></th><td><input type="submit" name=register value="目標一覧へ追加"></td></tr>
+        {{--<input type="submit" name=register value="目標一覧へ追加">このinputの中のname=registerは
+               今のところどのコントローラにも影響しない。
+               submitボタンを二つにしてそれぞれの機能を分けたいとかだと、iuputタグにnameプロパティつける必要が出てくる。--}}
         </table>
         </form>
+        <a href="/goal/list" class="btn">他の目標を見る</a>
+        <a href="/goal" class="btn">目標一覧へ</a>
     </div>
    
     
