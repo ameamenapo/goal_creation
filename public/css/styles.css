@@ -1,6 +1,5 @@
 body { font-family: "Avenir Next"; margin: 0;}
-header { background-color: #ffc0cb; height: 170px; margin: 0;}
-#title { margin: 0;}
+header { background-color: #ffc0cb; height: 170px;}
  .main { background-color: #deb887; height: 1000px; }
  footer { background-color: #ffc0cb; height: 90px; }
  h1 { font-size: 50pt; text-align: left; color: white;
@@ -11,7 +10,14 @@ header { background-color: #ffc0cb; height: 170px; margin: 0;}
      margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
  ul { font-size: 12pt; }
  li { list-style: none;}
+ 
+ .header-logo {text-align: center; padding-top: 7px; display: inline-block;}
+ /*.header-logoのdisplay: inline-block;を消すと、ロゴは中心になるが、ログインボタンがヘッダーからはみ出す。*/
  .header-list li { float: right; padding: 30px 20px; }
  .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s;}
  .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
- .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
+ .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; }
+ 
+ .container{padding:230px 200px; background-color: #ffc0cb;} /*login画面つまりlogin.blade.phpのcontainer中央寄せにした。*/
+ .login-header{ padding:5px 330px;}
+ 

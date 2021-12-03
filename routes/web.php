@@ -59,6 +59,11 @@ Route::get('user', 'UserController@index');
 Route::get('user/edit', 'UserController@edit')->name('user.edit');
 Route::post('user/edit', 'UserController@update');
 
+Route::get('/profile', 'ProfileController@index');
+Route::post('/profile', 'ProfileController@store');
+//Route::get('/profile/add', 'ProfileController@add');
+//Route::post('/profile/add', 'ProfileController@create');
+
 
 //以下の二行はphp artisan make:authしてauth機能を追加したら自動的に追加されたもの。
 Auth::routes();

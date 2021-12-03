@@ -11,16 +11,26 @@ class Profile extends Model
     
      protected $fillable = [
         'nickname',
+        'profile_img',
         'age',
         'hobby',
         'a_word',
         'created_at',
         'updated_at',
+        'user_id',
+        
     ];
     
     protected $guarded = [
         'id',
-        'user_id',
+       
+    ];
+    
+    public static $rules = [
+        'nickname' => 'max: 30',
+        'hobby' => 'max: 50',
+        'a_word' => 'max: 100',
+        'profile_img' => 'image|file',
     ];
     
     public function user()

@@ -23,8 +23,10 @@
     .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
     .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
     </style>
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {{--<link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
+    <link rel="stylesheet" href="css/styles.css"> {{--ここはオリジナルのCSS読み込んでいる。でもあんま効力なさない？--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> {{--ここはbootstrap読み込んでいる--}}
 </head>
 <body>
     <header>
@@ -71,10 +73,13 @@
         </tr>
         
         </table>
+        {{ $items->links() }}{{--これだとデザインが崩れてしまうから、AppServiceProviderでbootstrap読み込まないといけない。--}}
+        {{--{{ $items->links('pagination::bootstrap-4') }}--}}
         </form>
+        
         <a class="btn" href="/goal/list">目標を追加する</a>
         <a class="btn" href="/goal/del_list">一覧から目標を削除</a>
-        <a class="btn" href="/user">マイページへ</a>
+        <a class="btn" href="/user">インデックスへ</a>
     </div>
 
         

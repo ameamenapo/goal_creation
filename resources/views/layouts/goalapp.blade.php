@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     {{--<link rel="stylesheet" href="reset.css">　　このファイルはもしCSSをリセットしたいならたすもの--}}
-    <link rel="stylesheet" href="css/styles.css">
     {{--<link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">    

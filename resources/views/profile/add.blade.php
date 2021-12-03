@@ -20,6 +20,7 @@
     .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s; }
     .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
     .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
+    .btn { padding: 8px 24px; color: white; display: inline-block; opacity: 0.8; }
     </style>
     <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -31,7 +32,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a class="btn" href=" ">ログアウト</a>
+          <a class="login" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -41,25 +42,33 @@
                 <li>マイページ</li>
             </ul>
         </div>
-        
     </header>
         
-        
+     
     <div class=main>
-        <h1>目標を選ぶ</h1>
-        <a class="btn" href="{{action('GoalController@choose1') }}">アプリオリジナル目標</a>
-        <a class="btn" href="{{ action('GoalController@choose2') }}">自分で作成した目標</a>
-        <a class="btn" href="{{ action('GoalController@choose3') }}">他のユーザーが作成した目標</a>
-    
-    <div class="btn-wrapper">    
-        <a href="/user" class="btn">インデックスへ</a>
+        <h1>マイページ作成画面</h1>
+        <p>{{$msg}}</p>
+        
+    <form action="/profile/add" method="post">
+    <table>
+        @csrf
+        {{--<input type="hidden" name="id" value="{{$profile->id}}">--}}
+        <tr><th>ニックネーム： </th><td><input type="text" name="nickname"></td></tr>
+        <tr><th>年齢: </th><td><input type="text" name="age"></td></tr>
+        <tr><th>趣味: </th><td><input type="text" name="hobby"></td></tr>
+        <tr><th>ひとこと: </th><td><textarea name="a_word" rows="6" cols="40"></textarea></td></tr>
+        <tr><th>プロフィール画像: </th><td><input type="file" name="profile_image"></td></tr>
+        
+        <tr><th></th><td><input type="submit" value="情報を編集"></td></tr>
+    </table>  
+    </form>
+        <div class="btn-wrapper">
+            <a href="/user" class="btn">インデックスへ</a>
+        </div>
     </div>
-    </div>
+      
     
-   
-   
-    
-    
+        
         
     
     <footer>

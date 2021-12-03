@@ -24,6 +24,7 @@ class CreateGoalsTable extends Migration
             $table->string('sixth_day');
             $table->string('seventh_day');
             $table->foreignId('user_id')->constrained(); //本来は、この（）の中に紐付けたいテーブル名を入れる。
+            //$table->softDeletes('deleted_at', 0);
             $table->timestamps();
 
         });

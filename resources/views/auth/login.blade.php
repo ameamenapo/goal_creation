@@ -1,6 +1,6 @@
 @extends('layouts.goalapp')　{{--←元々は@extends('layouts.app')--}}
 
-@section('title', 'Login')
+
 
 @section('stylesheet')
     {{--<link rel="stylesheet" href="reset.css">　　このファイルはもしCSSをリセットしたいならたすもの--}}
@@ -11,19 +11,18 @@
      {{--以下はFont Awesome5を読み込んでいる。--}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
 
-@include('layouts.header')  
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="row justify-content-center">{{ __('Login') }}</div> {{--もとは<div class="card-header">{{ __('Login') }}</div>--}}
+                <div class="login-header">{{ __('Login') }}</div> {{--もとは<div class="card-header">{{ __('Login') }}</div>--}}
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+ 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right form-control-lg">メールアドレス</label>
 
@@ -85,4 +84,3 @@
 </div>
 @endsection
 
-@include('layouts.footer')

@@ -13,9 +13,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         
-        
         $user = Auth::user();
-       
         return view('user.index', compact('user'));
     }
     

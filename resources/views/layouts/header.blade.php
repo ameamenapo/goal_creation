@@ -8,21 +8,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
 @endsection
 @section('header')
-<header class=header >
+<header class=header>
         <div class="header-logo">
-            <h1 id="title">誰か目標作ってくれないかな</h1>
-            <h2>〜暇を持て余したあなたへ〜</h2>
+            <a href="/"><img src="/storage/logo.png" width="150px" height="150px"></a>    
         </div>
         <div class="header-right">
-          <a class="btn" href="/login">ログイン</a>
-        </div>
-        <div class="header-list">
-            <ul>
-                <li>facebook</li>
-                <li>twitter</li>
-                <li>企業の方</li>
-                <li>マイページ</li>
-            </ul>
+          <a href="/login">ログイン</a>
         </div>
 </header>
 @endsection

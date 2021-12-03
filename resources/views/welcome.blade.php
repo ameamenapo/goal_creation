@@ -17,7 +17,7 @@
 @section('content')
 <div class="main">
 <h1>今日は何しようかな</h1>
-<h1>始める</h1>
+<a href="/register"><button type="button" class="btn btn-primary btn-lg">始める</button></a>
 </div>
 @endsection
 

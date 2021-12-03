@@ -22,8 +22,10 @@
     .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
     .report li { float: left; padding: 30px 20px; }
     </style>
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {{--<link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
+    <link rel="stylesheet" href="css/styles.css"> {{--ここはオリジナルのCSS読み込んでいる。でもあんま効力なさない？--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> {{--ここはbootstrap読み込んでいる--}}
 </head>
 <body>
     <header>
@@ -55,9 +57,10 @@
         </tr>
         @endforeach 
         </table>
-        
+        {{ $items->links() }}
+        {{--{{ $items->links('pagination::bootstrap-4') }}ちゃんとAppServiceProviderにbootstrap読み込んでれば上記のコーーどでOK--}}
         <div class="btn-wrapper">
-            <a href="/user" class="btn">マイページへ</a>
+            <a href="/user" class="btn">インデックスへ</a>
         </div>     
     </div>
         

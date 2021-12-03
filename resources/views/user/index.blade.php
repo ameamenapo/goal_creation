@@ -55,13 +55,13 @@
         <p>※ログインしていません。(<a href="/login">ログイン</a>|<a href="/register">登録</a>)</p>
         @endif
         
-        <h1>マイページ</h1>
+        <h1>インデックスページ</h1>
         <p><a class=movePage  href="{{action('GoalController@add') }}">目標を作成する</a></p>
         <p><a class=movePage  href="{{action('GoalController@choose') }}">目標を選ぶ</a></p>
         <p><a class=movePage  href="{{action('GoalController@index') }}">目標一覧</a></p>
         <p><a class=movePage  href="{{action('AchievementController@index') }}">達成した目標</p>
         <p>交流</p>
-        <p><a class=movePage  href="#">プロフィール編集</p>
+        <p><a class=movePage  href="{{action('ProfileController@index')}}">マイページ</p>
         
     </div>
         

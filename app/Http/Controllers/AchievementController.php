@@ -20,7 +20,8 @@ class AchievementController extends Controller
     public function index(Request $request)
     {
         $user_id = Auth::id();
-        $items = Achievement::where('user_id', $user_id)->where('progress', 7)->get();
+        //$items = Achievement::where('user_id', $user_id)->where('progress', 7)->get(); ペジネーション機能なしのやつ。
+        $items = Achievement::where('user_id', $user_id)->where('progress', 7)->paginate(1);
         return view('goal.achievement', ['items'=> $items]);
     }
     
@@ -65,7 +66,7 @@ class AchievementController extends Controller
                 'user_id' => $user_id, 
                 'goal_id' => $item->id,
             ];
-            var_dump($form);
+            //var_dump($form);
             $achievement = new Achievement;
             $achievement->fill($form)->save();
             $item = Goal::where('id',$request->todo)->first(); //idかtodoか
@@ -138,7 +139,7 @@ class AchievementController extends Controller
                 $achievement = Achievement::where('goal_id', $request->todo)->first(); 
                 $achievement->fill($form)->save();
                 $item = Goal::where('id',$request->todo)->first();
-                var_dump($item);
+                //var_dump($item);
                 $msg = 'やったね！';
                 return view('goal.third_day', compact('item','msg'));     
                 } elseif ($achievement->progress === 1) {
@@ -172,7 +173,7 @@ class AchievementController extends Controller
                 $form = [
                     'theme' => $achievement->theme,
                     'progress' => 4,
-                    'user_id' => $user_id(), 
+                    'user_id' => $user_id, 
                     'goal_id' => $achievement->id,
             ];
                 
@@ -190,7 +191,7 @@ class AchievementController extends Controller
             $msg = '2日目の目標がクリアできていません。';
             return view('goal.fourth_day', compact('item','msg')); 
             } else {
-                $item = Goal::where('id',$request->todo)->get();
+                $item = Goal::where('id',$request->todo)->first();
                 $msg = '４日目の目標はクリアしています。';
                 return view('goal.fourth_day', compact('item','msg'));     
             } 

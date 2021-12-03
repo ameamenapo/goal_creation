@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Goal creation</title>
+    <style>
+    body { font-family: "Avenir Next"; }
+    header { background-color: #ffc0cb; height: 170px; }
+    .main { background-color: #deb887; height: 1000px; }
+    footer { background-color: #ffc0cb; height: 90px; }
+    h1 { font-size: 50pt; text-align: left; color: white;
+        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
+    h2 { font-size: 20pt; text-align: leftt; color: white;
+        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
+    p { font-size: 20pt; text-align: leftt; color: white;
+        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
+    ul { font-size: 12pt;}
+    li { list-style: none; }
+    .header-list li { float: right; padding: 30px 20px; }
+    .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s; }
+    .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
+    .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
+    .btn { padding: 8px 24px; color: white; display: inline-block; opacity: 0.8; }
+    </style>
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <h1>誰か目標作ってくれないかな</h1>
+            <h2>〜暇を持て余したあなたへ〜</h2>
+        </div>
+        <div class="header-right">
+          <a class="login" href=" ">ログアウト</a>
+        </div>
+        <div class="header-list">
+            <ul>
+                <li>facebook</li>
+                <li>twitter</li>
+                <li>企業の方</li>
+                <li>マイページ</li>
+            </ul>
+        </div>
+    </header>
+        
+     
+    <div class=main>
+        <h1>マイページ</h1>
+        
+        
+        <form action="/profile" method="post" enctype="multipart/form-data">
+        {{--@foreach($profiles as $profile)    --}}
+        <table>
+        <input type="hidden" name="id" value="{{$profile->id}}">
+        <input type="hidden" name="user_id" value="{{$profile->user_id}}">
+        <tr><th>ニックネーム： </th><td><input type="text" name="nickname" value="{{optional($profile)->nickname}}"></td></tr>
+        <tr><th>年齢: </th><td><input type="int" name="age" value="{{optional($profile)->age}}"></td></tr>
+        <tr><th>趣味: </th><td><input type="text" name="hobby" value="{{optional($profile)->hobby}}"></td></tr>
+        <tr><th>ひとこと: </th><td><textarea name="a_word" rows="6" cols="40">{{optional($profile)->a_word}}</textarea></td></tr>
+            {{ csrf_field() }}
+            {{--<input type="hidden" name="id" value="{{optional($profile)->id}}">--}}
+            {{--<img src="{{ asset('/storage/{{$profile->profile_image}}')}}">--}}
+            {{--<img src="{{ asset('/storage/'.$profile->profile_image)}}">--}}
+            {{--<img src="{{ asset('public/storage/'.$profile->profile_image)}}">--}}    
+            {{--<img src="/storage/{{$profile->profile_image}}">--}}
+            {{--<img src="{{$profile->profile_image}}">--}}
+            {{--<img src="public/storage{{ $profile->profile_image }}">--}}
+            <img src="/storage/default">
+            <img src="/storage/orange.jpg">
+            {{--<img src="/storage/lelaxation_l2.png">--}}
+            <img src="/storage/{{$profile->profile_image}}">
+            
+            {{--<img src="/storage/{{$profile->profile_image}}.png">--}}
+            
+            {{--@if (file_exists($$profile->profile_image)) {
+            <img src="/storage/{{$profile->profile_image}}">
+            @else
+            <img src="/storage/orange.jpg">
+            @endif--}}
+           
+            <tr><th>プロフィール画像: </th><td><input type="file" name="profile_image"></td></tr>
+            <tr><th></th><td><input type="submit" value="アップロードする"></td></tr>
+        {{--@endforeach--}}
+        </table>
+        </form>
+        
+        {{--<form action="{{ route('admin.members.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="profile_img">
+        </form> --}}
+       
+       {{--<form action="/user/profile" method="post"> 
+        @csrf
+        <table>
+            <tr><td>{{optional($profile)->profile_image}}</a></td></tr>
+            <tr><td>{{optional($profile)->nickname}}</a></td></tr>
+            <tr><td>{{optional($profile)->age}}</td></tr>
+            <tr><td>{{optional($profile)->hobby}}</td></tr>
+            <tr><td>{{optional($profile)->a_word}}</td></tr>
+        </table>
+        </form>--}}
+
+        <div class="btn-wrapper">
+            <a href="/user" class="btn">インデックスへ</a>
+        </div>
+    </div>
+      
+    
+        
+        
+    
+    <footer>
+        <p>ここはフッター</p>
+    </footer>
+</body>
+</html>

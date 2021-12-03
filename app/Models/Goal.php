@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User; 
-use App\Models\Goal_list; 
+use App\Models\Goal_list;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Goal extends Model
 {
@@ -25,7 +26,9 @@ class Goal extends Model
     protected $guarded = [
         'id',
         'user_id',
-];
+    ];
+    
+    //use SoftDeletes;これは、goalsテーブルとachievementsテーブルについて論理削除するとしたら使うコード。今回はいらない。
     
     public function user()
     {

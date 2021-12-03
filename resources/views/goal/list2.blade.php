@@ -21,8 +21,10 @@
     .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
     .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
     </style>
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {{--<link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
+    <link rel="stylesheet" href="css/styles.css"> {{--ここはオリジナルのCSS読み込んでいる。でもあんま効力なさない？--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> {{--ここはbootstrap読み込んでいる--}}      
 </head>
 <body>
     <header>
@@ -67,6 +69,8 @@
                今のところどのコントローラにも影響しない。
                submitボタンを二つにしてそれぞれの機能を分けたいとかだと、iuputタグにnameプロパティつける必要が出てくる。--}}
         </table>
+        {{ $items->links() }}
+        {{--{{ $items->links('pagination::bootstrap-4') }}上記の表記で大丈夫--}}
         </form>
         <a href="/goal/list" class="btn">他の目標を見る</a>
         <a href="/goal" class="btn">目標一覧へ</a>

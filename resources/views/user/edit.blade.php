@@ -61,7 +61,7 @@
     </table>    
 
         <div class="btn-wrapper">
-            <a href="/user" class="btn">マイページへ</a>
+            <a href="/user" class="btn">インデックスへ</a>
         </div>
     </div>
       

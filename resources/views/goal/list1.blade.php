@@ -22,8 +22,10 @@
     .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
     .
     </style>
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {{--<link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
+    <link rel="stylesheet" href="css/styles.css"> {{--ここはオリジナルのCSS読み込んでいる。でもあんま効力なさない？--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> {{--ここはbootstrap読み込んでいる--}}    
 </head>
 <body>
     <header>
@@ -66,6 +68,8 @@
         
         <tr><th></th><td><input type="submit" value="目標一覧へ追加"></td></tr>
         </table>
+        {{--{{ $items->links('pagination::bootstrap-4') }}AppServiceProviderのbootアクションにbootstrapの足したので、下の普通の$items->links()で大丈夫。--}}
+        {{ $items->links() }}
         </form>
         <a href="/goal/list" class="btn">他の目標を見る</a>
         <a href="/goal" class="btn">目標一覧へ</a>

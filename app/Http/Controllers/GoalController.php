@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Support\ServiceProvider;//ペジネーションのため追記
+use Illuminate\Support\Collection; //ペジネーションのため追記
+use Illuminate\Pagination\LengthAwarePaginator; //ペジネーションのため追記
+use Illuminate\Pagination\Paginator;//ペジネーションのため追記。でも実際は上の３つはいらないかも。
 //use Request as PostRequest;
 
 class GoalController extends Controller
@@ -21,11 +28,9 @@ class GoalController extends Controller
     public function index(Request $request, Goal $goal)
     {
         $user_id = Auth::id(); 
-        // モデルファイルを使っていない。
-        // MVC それぞれでファイルが分かれる。
-        $items = Goal::where('user_id', $user_id)->get();
+        $items = Goal::where('user_id', $user_id)->paginate(3);
         //var_dump($items);
-        //var_dump($user_id);
+        //$items = Goal::where('user_id', $user_id)->get();　ぺ時ネーション機能がついてない時のコード。
         // リダイレクトについて
         // 別のURLへ遷移、移動させること
         // Googleへ飛ぶ
@@ -161,8 +166,8 @@ class GoalController extends Controller
     
     public function choose1(Request $request, Goal $goal)
     {
-        $items = Goal_list::where('classification', 1)->get();
-        //var_dump($items);
+        //$items = Goal_list::where('classification', 1)->get(); ペジネーション機能つけてない時のコード。
+        $items = Goal_list::where('classification', 1)->paginate(10);
         return view('goal.list1', ['items' => $items]);
     }
     
@@ -171,7 +176,8 @@ class GoalController extends Controller
         // var_dump(Auth::user());
         //var_dump(Auth::id());
         $user_id = Auth::id(); 
-        $items = Goal_list::where('user_id', $user_id)->get();
+        //$items = Goal_list::where('user_id', $user_id)->get(); ペジネーション機能つけてない時のコード。
+        $items = Goal_list::where('user_id', $user_id)->paginate(10);
         //var_dump($items);
         //viewの方完成させたら上の->get()を->simplePaginate(10)とかに変えてページ数動かせるようになりたい。
         return view('goal.list2', ['items' => $items]);
@@ -183,7 +189,8 @@ class GoalController extends Controller
         // 条件:
         // ログインユーザー以外の人が作った目標
         $user_id = Auth::id();
-        $items = Goal_list::where('user_id', '!=', $user_id)->where('user_id', '!=', 1 )->get();
+        //$items = Goal_list::where('user_id', '!=', $user_id)->where('user_id', '!=', 1 )->get(); ペジネーション機能つけてない時のコード。
+        $items = Goal_list::where('user_id', '!=', $user_id)->paginate(10);
         //var_dump($items);
         //$items = Goal_list::where('user_id', '<>', $user_id)->get();の方が対応しているDB多いらしい。
         return view('goal.list3', ['items' => $items]);
@@ -241,7 +248,8 @@ class GoalController extends Controller
         $goal = new Goal;
         $goal->fill($form)->save();
         $user_id = Auth::id(); 
-        $items = Goal::where('user_id', $user_id)->get();
+        //$items = Goal::where('user_id', $user_id)->get();ペジネーション機能つけない時のやつ。
+        $items = Goal::where('user_id', $user_id)->paginate(3);
         //var_dump($items);
         return view('goal.index', compact('items'));
         
@@ -269,7 +277,7 @@ class GoalController extends Controller
     {
         $items = Goal::where('id',$request->id)->get();
         $msg = '';
-        var_dump($items);
+        //var_dump($items);
         return view('goal.today_goal', compact('items', 'msg'));
         
     }
@@ -279,7 +287,7 @@ class GoalController extends Controller
         $item = Goal::where('id',$request->id)->first();
         //$items = Goal::where('id',$request->id)->get();
         $msg = '';
-        var_dump($item);
+        //var_dump($item);
         return view('goal.first_day', compact('item','msg')); 
         //return view('goal.first_day', compact('items','msg'));     
     }
@@ -299,7 +307,7 @@ class GoalController extends Controller
         $item = Goal::where('id',$request->id)->first();
         //$items = Goal::where('id',$request->id)->get();
         $msg = '';
-        var_dump($item);
+        //var_dump($item);
         return view('goal.third_day', compact('item','msg'));
         //return view('goal.third_day', compact('items','msg'));     
     }

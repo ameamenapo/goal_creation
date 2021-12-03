@@ -18,8 +18,11 @@ class CreateAchievementsTable extends Migration
             $table->string('theme');
             $table->integer('progress')->default(0);
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('goal_id')->references('id')->on('goals'); 
-            //$table->foreign('user_id')->references('id')->on('users');
+            //$table->foreign('user_id')->references('id')->on('users');こういう書き方もできるという例。
+            $table->foreignId('goal_id')->references('id')->on('goals')
+                                                                ->cascadeOnDelete()  // ON DELETE で CASCADE
+                                                                ->cascadeOnUpdate(); // ON UPDATE で CASCADE
+                                                                //上記の２行を足すことで、goalsテーブルのレコードを削除したらachievementsテーブルの紐づいたレコードも一緒に消してくれる。
             $table->timestamps();
         });
     }
