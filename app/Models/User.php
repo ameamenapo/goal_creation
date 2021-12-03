@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;//退会機能をつけるにあたり追加。
 
 class User extends Authenticatable
 {
@@ -62,4 +63,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Profile');
     }
+    
+    use SoftDeletes;//退会機能をつけるにあたり追加した。
+    
+    protected $dates = ['deleted_at'];//退会機能をつけるにあたり追加した。
 }

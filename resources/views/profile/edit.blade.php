@@ -49,7 +49,7 @@
         <h1>マイページ作成画面</h1>
         <p>{{$msg}}</p>
         
-    <form action="/profile/add" method="post">
+    <form action="/profile/edit" method="post">
     <table>
         @csrf
         {{--<input type="hidden" name="id" value="{{$profile->id}}">--}}
@@ -57,9 +57,9 @@
         <tr><th>年齢: </th><td><input type="text" name="age"></td></tr>
         <tr><th>趣味: </th><td><input type="text" name="hobby"></td></tr>
         <tr><th>ひとこと: </th><td><textarea name="a_word" rows="6" cols="40"></textarea></td></tr>
-        <tr><th>プロフィール画像: </th><td><input type="file" name="profile_image"></td></tr>
+        {{--<tr><th>プロフィール画像: </th><td><input type="file" name="profile_image"></td></tr>--}}
         
-        <tr><th></th><td><input type="submit" value="情報を編集"></td></tr>
+        <tr><th></th><td><input type="submit" value="プロフィールを編集"></td></tr>
     </table>  
     </form>
         <div class="btn-wrapper">

@@ -30,7 +30,7 @@ class Profile extends Model
         'nickname' => 'max: 30',
         'hobby' => 'max: 50',
         'a_word' => 'max: 100',
-        'profile_img' => 'image|file',
+        'profile_image' => 'image|file',
     ];
     
     public function user()

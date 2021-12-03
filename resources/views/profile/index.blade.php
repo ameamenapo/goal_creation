@@ -50,56 +50,20 @@
         
         
         <form action="/profile" method="post" enctype="multipart/form-data">
-        {{--@foreach($profiles as $profile)    --}}
         <table>
-        <input type="hidden" name="id" value="{{$profile->id}}">
-        <input type="hidden" name="user_id" value="{{$profile->user_id}}">
-        <tr><th>ニックネーム： </th><td><input type="text" name="nickname" value="{{optional($profile)->nickname}}"></td></tr>
-        <tr><th>年齢: </th><td><input type="int" name="age" value="{{optional($profile)->age}}"></td></tr>
-        <tr><th>趣味: </th><td><input type="text" name="hobby" value="{{optional($profile)->hobby}}"></td></tr>
-        <tr><th>ひとこと: </th><td><textarea name="a_word" rows="6" cols="40">{{optional($profile)->a_word}}</textarea></td></tr>
-            {{ csrf_field() }}
-            {{--<input type="hidden" name="id" value="{{optional($profile)->id}}">--}}
-            {{--<img src="{{ asset('/storage/{{$profile->profile_image}}')}}">--}}
-            {{--<img src="{{ asset('/storage/'.$profile->profile_image)}}">--}}
-            {{--<img src="{{ asset('public/storage/'.$profile->profile_image)}}">--}}    
-            {{--<img src="/storage/{{$profile->profile_image}}">--}}
-            {{--<img src="{{$profile->profile_image}}">--}}
-            {{--<img src="public/storage{{ $profile->profile_image }}">--}}
-            <img src="/storage/default">
-            <img src="/storage/orange.jpg">
-            {{--<img src="/storage/lelaxation_l2.png">--}}
-            <img src="/storage/{{$profile->profile_image}}">
-            
-            {{--<img src="/storage/{{$profile->profile_image}}.png">--}}
-            
-            {{--@if (file_exists($$profile->profile_image)) {
-            <img src="/storage/{{$profile->profile_image}}">
-            @else
-            <img src="/storage/orange.jpg">
-            @endif--}}
-           
+        {{ csrf_field() }}
+            <img src="/storage/{{$profile->profile_image}}" width="150" height="150">
+    
             <tr><th>プロフィール画像: </th><td><input type="file" name="profile_image"></td></tr>
             <tr><th></th><td><input type="submit" value="アップロードする"></td></tr>
-        {{--@endforeach--}}
+            <input type="hidden" name="id" value="{{$profile->id}}">
+            <input type="hidden" name="user_id" value="{{$profile->user_id}}">
+            <tr><th>ニックネーム： </th><td><input type="text" name="nickname" value="{{optional($profile)->nickname}}"></td></tr>
+            <tr><th>年齢: </th><td><input type="int" name="age" value="{{optional($profile)->age}}"></td></tr>
+            <tr><th>趣味: </th><td><input type="text" name="hobby" value="{{optional($profile)->hobby}}"></td></tr>
+            <tr><th>ひとこと: </th><td><textarea name="a_word" rows="6" cols="40">{{optional($profile)->a_word}}</textarea></td></tr>
         </table>
         </form>
-        
-        {{--<form action="{{ route('admin.members.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="file" name="profile_img">
-        </form> --}}
-       
-       {{--<form action="/user/profile" method="post"> 
-        @csrf
-        <table>
-            <tr><td>{{optional($profile)->profile_image}}</a></td></tr>
-            <tr><td>{{optional($profile)->nickname}}</a></td></tr>
-            <tr><td>{{optional($profile)->age}}</td></tr>
-            <tr><td>{{optional($profile)->hobby}}</td></tr>
-            <tr><td>{{optional($profile)->a_word}}</td></tr>
-        </table>
-        </form>--}}
 
         <div class="btn-wrapper">
             <a href="/user" class="btn">インデックスへ</a>

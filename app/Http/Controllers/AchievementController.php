@@ -133,7 +133,7 @@ class AchievementController extends Controller
                     'theme' => $achievement->theme,
                     'progress' => 3,
                     'user_id' => $user_id, 
-                    'goal_id' => $achievement->id,
+                    'goal_id' => $achievement->goal_id,
                 ];
                 
                 $achievement = Achievement::where('goal_id', $request->todo)->first(); 
@@ -174,7 +174,7 @@ class AchievementController extends Controller
                     'theme' => $achievement->theme,
                     'progress' => 4,
                     'user_id' => $user_id, 
-                    'goal_id' => $achievement->id,
+                    'goal_id' => $achievement->goal_id,
             ];
                 
             $achievement = Achievement::where('goal_id', $request->todo)->first(); 
@@ -215,7 +215,7 @@ class AchievementController extends Controller
                     'theme' => $achievement->theme,
                     'progress' => 5,
                     'user_id' => $user_id, 
-                    'goal_id' => $achievement->id,
+                    'goal_id' => $achievement->goal_id,
             ];
             
             $achievement = Achievement::where('goal_id', $request->todo)->first(); 
@@ -261,7 +261,7 @@ class AchievementController extends Controller
                     'theme' => $achievement->theme,
                     'progress' => 6,
                     'user_id' => $user_id, 
-                    'goal_id' => $achievement->id,
+                    'goal_id' => $achievement->goal_id,
             ];
             $achievement = Achievement::where('goal_id', $request->todo)->first(); 
             $achievement->fill($form)->save();
@@ -310,7 +310,7 @@ class AchievementController extends Controller
                     'theme' => $achievement->theme,
                     'progress' => 7,
                     'user_id' => $user_id, 
-                    'goal_id' => $achievement->id,
+                    'goal_id' => $achievement->goal_id,
             ];
             $achievement = Achievement::where('goal_id', $request->todo)->first(); 
             $achievement->fill($form)->save();

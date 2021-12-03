@@ -44,25 +44,32 @@
         </div>
     </header>
         
-    
+     
     <div class=main>
-    <form action="/person/index" method="post">    
-    <table>
-    @csrf    
-        <tr><th>メールアドレス: </th><td><input type="text" name="email"></td></tr>
-        <tr><th>パスワード: </th><td><input type="text" name="password"></td></tr>
-        <tr><th></th><td><input type="submit" value="ログイン"></td></tr>
-    </table>
-    </form>
+        <h1>退会画面</h1>
+        <p>{{$msg}}</p>
+        
+        <form action="/user/destroy" method="post">
+        <table>
+         @csrf
+        
+            <h1>退会しますか？</h1>
+            <p>退会すると、作成した目標は全て消えます。</p>
+            <input type="hidden" name="id" value="{{$user->id}}">
+            <tr><th></th><td><input type="submit" value="退会する"></td></tr>
+            
+        </table>
+        </form>
 
         <div class="btn-wrapper">
-            <a href="#" class="btn signup">パスワードをお忘れですか？</a>
-            <a href="#" class="btn facebook">新規登録画面へ</a>
+            <a href="/user" class="btn">インデックスへ</a>
         </div>
     </div>
-     
+      
     
         
+        
+    
     <footer>
         <p>ここはフッター</p>
     </footer>

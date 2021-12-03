@@ -48,21 +48,17 @@ Route::post('goal/sixth_day', 'AchievementController@sixth_post');
 Route::get('goal/seventh_day', 'GoalController@seventh_day')->name('goal.seventh_day');
 Route::post('goal/seventh_day', 'AchievementController@seventh_post');
 Route::get('goal/achievement', 'AchievementController@index');
-
-//Route::get('person', 'PersonController@index');
-//Route::get('person/signup', 'PersonController@getSignup');
-//Route::post('person/signup', 'PersonController@postSignup');
-//Route::get('person/login', 'PersonController@getLogin');
-//Route::post('person/index', 'PersonController@postLogin');
-
+//以下はユーザー情報に関するもの
 Route::get('user', 'UserController@index');
 Route::get('user/edit', 'UserController@edit')->name('user.edit');
 Route::post('user/edit', 'UserController@update');
-
+Route::get('user/destroy', 'UserController@withdrawal');
+Route::post('user/destroy', 'UserController@destroy');
+//以下はプロフィール編集に関するもの
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile', 'ProfileController@store');
-//Route::get('/profile/add', 'ProfileController@add');
-//Route::post('/profile/add', 'ProfileController@create');
+Route::get('/profile/edit', 'ProfileController@edit');
+Route::post('/profile/edit', 'ProfileController@update');
 
 
 //以下の二行はphp artisan make:authしてauth機能を追加したら自動的に追加されたもの。

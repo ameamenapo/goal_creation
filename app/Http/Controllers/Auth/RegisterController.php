@@ -51,7 +51,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],//変更前
+            'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',//変更後。退会機能作成のため追加。
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
