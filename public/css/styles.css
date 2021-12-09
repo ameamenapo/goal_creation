@@ -1,23 +1,77 @@
+* header{
+    margin: 0px;
+    padding: 0px;
+}
+
 body { font-family: "Avenir Next"; margin: 0;}
-header { background-color: #ffc0cb; height: 170px;}
- .main { background-color: #deb887; height: 1000px; }
+header { background-color: #ffc0cb; height: 120px;}
+ .main { background-color: #f5f5f5; height: 1200px; }
  footer { background-color: #ffc0cb; height: 90px; }
- h1 { font-size: 50pt; text-align: left; color: white;
+ h1 { font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+      font-size: 50pt; text-align: left; color:#db7093;
+      margin: -20px 0px -30px 0px; letter-spacing: 0.1em;　}
+ h2 { font-size: 20pt; text-align: left; color: #db7093;
       margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
- h2 { font-size: 20pt; text-align: left; color: white;
-      margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
- p { font-size: 20pt; text-align: left; color: white;
-     margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
- ul { font-size: 12pt; }
- li { list-style: none;}
+ p { font-size: 20pt; text-align: left; color: #db7093;
+     margin: -20px 0px -30px 0px; letter-spacing: 0.1em;　}  
+ ul { font-size: 12pt;}
+ li { list-style: none; float:left;  padding: 33px 20px;}
  
- .header-logo {text-align: center; padding-top: 7px; display: inline-block;}
- /*.header-logoのdisplay: inline-block;を消すと、ロゴは中心になるが、ログインボタンがヘッダーからはみ出す。*/
- .header-list li { float: right; padding: 30px 20px; }
- .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s;}
- .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
- .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; }
+  /*.ここら辺はヘッダーのロゴ周り。*/
+/*とにかく、おや要素がposition: relative;、子要素がposition: absolute！これで要素同士の重なりがうまくいく*/
+.header{display: flex; position: relative; padding: .8em 1.2rem;}/*.headerが親要素だからposition: relativeをつける。*/
+/*.headerを親要素としてposition: absoluteをつける。left:;でロゴの左端からの距離を指定。*/
+.header-logo{  position: absolute; left: 60px; bottom: 10px;}
+/*.header-listについて。margin:0 0 0 autoがないとロゴと重なってしまう。*/
+.header-list { margin:0 0 0 auto; padding: 35px 30px;　position: absolute; }
+/*.header-listli a はボタンについて。*/
+.header-list li a {color:black;}
+
+.header-right  a {background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s;}　
+.header-right  a:hover {background-color: rgba(255, 255, 255, 0.5);}
+/*下のコードについて。leftとかrbottomとかでヘッダー内の配置を「ログイン」ボタンだけ調整できる。paddingはボタンの大きさ調整。*/
+.header-right  a  {color: white; position: relative; left: 10px; bottom: 15px; line-height: 30px; padding: 10px 25px; }
+
+
+/*ここからは、login画面（login.blade.php)について。*/
+.container{padding:150px 200px; }/*login画面つまりlogin.blade.phpのcontainer中央寄せにした。background-color: #f5f5f5;を入れるとwelcomページと同じ背景色。*/
+/*login画面について。@section('content')以下にある.login-headerクラス。loginという文字を中央寄せにした。*/
+.login-header {margin:5px; text-align:center; font-size:30px;}
+
+/*ここからは、register画面（register.blade.php）について。*/
+.register-header{margin:5px; text-align:center; font-size:30px;}
+
+
+
+
+/*ここからは、ホーム画面（welcom.blade.php）について。*/
+.main-top { margin-right: 30px; margin-left:30px;}
+.main-top h2 {color:black; letter-spacing: 0.1em;}
+.top-button {margin-top:130px;}
+.step-top {margin-top:110px; }
+.step-area {margin-top:80px; }
+.title-header {font-size: 25pt; background-color: #dcdcdc; width: 100%;}
+.step-title{font-size: 15pt;}
+.step-explanation{margin-bottom:80px;}
+.bottom-button{margin-bottom:40px;}
+.top-button a { border-radius: 80px; font-size: 25pt;
+  background-color: #6495ED;
+  padding: 15px;
+  text-decoration: none;
+  color: white;}
+.bottom-button a{ border-radius: 80px; font-size: 25pt;
+  background-color: #6495ED;
+  padding: 15px;
+  text-decoration: none;
+  color: white;}
  
- .container{padding:230px 200px; background-color: #ffc0cb;} /*login画面つまりlogin.blade.phpのcontainer中央寄せにした。*/
- .login-header{ padding:5px 330px;}
- 
+ /*ここからは、ログアウト画面（user.logout.blade.php）について。*/
+ .main-logout{ background-color: #f5f5f5; height: 600px; }
+ .logout-header{height: 80px; text-align: center; font-size: 20pt; padding:5px 5px;}
+ .logout-body{height: 150px; text-align: center; font-size: 15pt;}
+ .logout-btn{padding:30px;}
+ .logout-btn a {border-radius: 20px; font-size: 15pt;
+  background-color: #6495ED;
+  padding: 15px;
+  text-decoration: none;
+  color: white;}

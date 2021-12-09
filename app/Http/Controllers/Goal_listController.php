@@ -16,6 +16,12 @@ class Goal_listController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //下のconstrunt()は、ログインユーザーでないと各viewにgetアクセスできないように設定している。
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //
@@ -82,20 +88,33 @@ class Goal_listController extends Controller
      * @param  \App\Models\Goal_list  $goal_list
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Goal_list $goal_list)
+    //自分の作った目標を削除するアクション。
+    public function delete(Request $request)
+    {   
+        $user_id = Auth::id();
+        $item = Goal_list::where('user_id', $user_id)->first();
+        return view('goal_list.delete', ['item' => $item]);
+    }
+    
+    //自分の作った目標を削除するアクション。
+    public function remove(Request $request)
     {
-        //
+        // $request はユーザーが入力した、送っている情報。
+        //下のdestroy($request->id)の中の$request->idは、goal_list/deleteビューでinputタグの中でname="id"、
+        //つまりプロパティをidに指定しているから。リクエストで入ってきた情報にアクセスする際はnameプロパティをrequestの矢印の後にしているす。
+        Goal_list::destroy($request->id);
+        return redirect('/goal/list2');
     }
     
     public function today_goal(Request $request)
     {
-        var_dump($request->id);
+        //var_dump($request->id);
         
         $items = Goal_list::where('id', $request->id)->get();
         //$items = Goal_list::find($request->id);
         //var_dump($request->all());
         //$items = Goal::find($request->id);
-        var_dump($items);
+        //var_dump($items);
         return view('goal.today_goal', ['items'=> $items]);
     }
     
@@ -116,7 +135,7 @@ class Goal_listController extends Controller
         
         $goal = new Goal;
         $form = $request->all();
-        var_dump($form);
+        //var_dump($form);
         unset($form['_token']);
         $goal->fill($form)->save();
         $items = Goal_list::with('goal')->where('id', $request->id)->get();

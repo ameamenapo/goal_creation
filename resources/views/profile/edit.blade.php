@@ -46,17 +46,18 @@
         
      
     <div class=main>
-        <h1>マイページ作成画面</h1>
-        <p>{{$msg}}</p>
+        <h1>マイページ編集画面</h1>
+        <p>プロフィールを編集してください。</p>
         
     <form action="/profile/edit" method="post">
     <table>
         @csrf
-        {{--<input type="hidden" name="id" value="{{$profile->id}}">--}}
-        <tr><th>ニックネーム： </th><td><input type="text" name="nickname"></td></tr>
-        <tr><th>年齢: </th><td><input type="text" name="age"></td></tr>
-        <tr><th>趣味: </th><td><input type="text" name="hobby"></td></tr>
-        <tr><th>ひとこと: </th><td><textarea name="a_word" rows="6" cols="40"></textarea></td></tr>
+        <input type="hidden" name="id" value="{{$profile->id}}">
+        <tr><th>ニックネーム： </th><td><input type="text" name="nickname" value="{{optional($profile)->nickname}}"></td></tr>
+        <tr><th>年齢: </th><td><input type="text" name="age" value="{{optional($profile)->age}}"></td></tr>
+        <tr><th>{{$msg}}</th></tr>
+        <tr><th>趣味: </th><td><input type="text" name="hobby" value="{{optional($profile)->hobby}}"></td></tr>
+        <tr><th>ひとこと: </th><td><textarea name="a_word" rows="6" cols="40">{{optional($profile)->a_word}}</textarea></td></tr>
         {{--<tr><th>プロフィール画像: </th><td><input type="file" name="profile_image"></td></tr>--}}
         
         <tr><th></th><td><input type="submit" value="プロフィールを編集"></td></tr>

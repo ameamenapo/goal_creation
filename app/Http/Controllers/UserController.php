@@ -10,6 +10,25 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    //下のconstrunt()は、ログインユーザーでないと各viewにgetアクセスできないように設定している。
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    //public function getLogout()
+    //{
+        //Auth::logout();
+        //return redirect()->route('/welcom');//ログアウトした先のページを指定。
+    //}
+    public function getLogout(){
+        return view('user/logout');
+    }
+    
+    public function postLogout(){
+        return view('/welcome');
+    }
+    
     public function index(Request $request)
     {
         
@@ -20,7 +39,7 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         $user = User::find($request->id);
-        var_dump($user);
+        //var_dump($user);
         $msg = '情報を編集してください。';
         return view('user.edit', compact('user','msg'));
     }
@@ -34,7 +53,7 @@ class UserController extends Controller
             'birthday' => $request->birthday,
             'email' => $request->email,
         ];
-        var_dump($param);
+        //var_dump($param);
         $user = User::find($request->id);
         $form = $request->all();
         unset($form['_token']);
@@ -42,7 +61,8 @@ class UserController extends Controller
         $msg = '情報を編集しました！';
         return view('user.edit', compact('user','msg'));
     }
-    //退会機能ためにwwithdrawalアクションを作成
+   
+    //退会機能ためにwithdrawalアクションを作成
     public function withdrawal()
     {
         $user_id = Auth::id();//ログインユーザーのidを取得。
@@ -50,6 +70,7 @@ class UserController extends Controller
         $msg = "";
         return view('user.destroy',compact('user','msg'));    
     }
+    
     //退会機能ためにdestroyアクションを作成。ここでしてる退会は論理削除。userテーブル含め、全てのテーブルにレコードは残る。
     public function destroy(Request $request)
     {

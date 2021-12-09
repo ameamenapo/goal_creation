@@ -50,24 +50,32 @@
     <div class=main>
         <h1>目標を選ぶ</h1>
         <p>自分で作成した目標</p>
-        <form action="/goal" method="post"> 
+        <form action="/goal/list2" method="post"> 
         <table>
         @csrf 
-        <tr>目標テーマ一覧</tr>
+        @if(isset($items)) 
+            @if($items->isEmpty())
+                <p>目標が登録されていないので、選べません。他の人の目標から選ぶか、自分で目標を作成しましょう！</p>
+            @else
+                <p>目標を選んでください。</p>    
+            @endif
+        @else
+            <p>{{$msg}}</p>
+        @endif
+        <tr>目標テーマ一覧</tr> 
         @foreach($items as $item)
         <tr>
-            
             <label style="display:block;">
-                <input type="radio"  name="theme" value="{{optional($item)->id}}">{{optional($item)->theme}}
+                <input type="radio"  name="theme" value="{{optional($item)->id}}" required>{{optional($item)->theme}}
                 <a href="{{ route('goal.edit') }}?id={{ optional($item)->id }}">編集</a><br>
+                <a href="{{ route('goal_list.delete') }}?id={{ optional($item)->id }}">削除</a><br>
             </label>
-            
         </tr>
         @endforeach
-        <tr><th></th><td><input type="submit" name=register value="目標一覧へ追加"></td></tr>
-        {{--<input type="submit" name=register value="目標一覧へ追加">このinputの中のname=registerは
-               今のところどのコントローラにも影響しない。
-               submitボタンを二つにしてそれぞれの機能を分けたいとかだと、iuputタグにnameプロパティつける必要が出てくる。--}}
+         
+        <tr><th></th><td><input type="submit" value="目標一覧へ追加"></td></tr>
+       
+    
         </table>
         {{ $items->links() }}
         {{--{{ $items->links('pagination::bootstrap-4') }}上記の表記で大丈夫--}}

@@ -17,6 +17,12 @@ class AchievementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //下のconstrunt()は、ログインユーザーでないと各viewにgetアクセスできないように設定している。
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index(Request $request)
     {
         $user_id = Auth::id();
@@ -51,12 +57,17 @@ class AchievementController extends Controller
         //上記の'goal_id'はachievementテーブルのgoal_idカラムの値のこと、$request->idはrequestで入ってきたgoalsテーブルのid。
         //if(DB::table('achievements')->where('goal_id',$request->id)->exists()) //DBでのレコードの存在判定。
         {
-            //$items = Goal::where('id',$request->id)->get();
-            //$items = Achievement::where('goal_id', $request->todo)->first();
-            $item = Goal::find($request->todo);//idかtodoか
-            $msg = '１日目の目標はクリアしています。';
-            //return view('goal.first_day', compact('items','msg'));
-            return view('goal.first_day', compact('item','msg'));  
+            $achievement = Achievement::where('goal_id', $request->todo)->first();
+            if ($achievement->progress === 7)
+            {
+                $item = Goal::where('id',$request->todo)->first();
+                $msg = 'このテーマの目標は全てクリアしています。';
+                return view('goal.first_day', compact('item','msg'));    
+            } else {
+                $item = Goal::find($request->todo);//idかtodoか
+                $msg = '１日目の目標はクリアしています。';
+                return view('goal.first_day', compact('item','msg'));     
+            }
         } else {
             $item = Goal::where('id',$request->todo)->first();
             //var_dump($item);
@@ -84,11 +95,11 @@ class AchievementController extends Controller
     {
         $user_id = Auth::id();
        
-        if(Achievement::where('goal_id', '=', $request->todo)->exists())//$request->idじゃなくて$request->todoかも
+        if(Achievement::where('goal_id', '=', $request->todo)->exists())
         {   
             $achievement = Achievement::where('goal_id', $request->todo)->first();
-            if ($achievement->progress === 1){
-                
+            if ($achievement->progress === 1)
+            {    
             
             $form = [
                 'theme' => $achievement->theme,
@@ -96,18 +107,22 @@ class AchievementController extends Controller
                 'user_id' => $user_id, // user_idはログインユーザーのIDを取得する
                 'goal_id' => $achievement->goal_id,
             ];
-            var_dump($form);
+            //var_dump($form);
             $achievement = Achievement::where('goal_id', $request->todo)->first(); 
             $achievement->fill($form)->save();
             $item = Goal::where('id',$request->todo)->first();//ここをget();にすると、ビューの表示ができなくなる。なぜ？
-            var_dump($item);
+            //var_dump($item);
             $msg = 'やったね！';
-            return view('goal.second_day', compact('item','msg')); 
+            return view('goal.second_day', compact('item','msg'));
+            } elseif ($achievement->progress === 7) {
+            $item = Goal::where('id',$request->todo)->first();
+            $msg = 'このテーマの目標は全てクリアしています。';
+            return view('goal.second_day', compact('item','msg'));
             } else {
-                $item = Goal::where('id',$request->todo)->first();//ここをget();にすると、ビューの表示ができなくなる。なぜ？
-                $msg = '２日目の目標はクリアしています。';
-                var_dump($item);
-                return view('goal.second_day', compact('item','msg'));     
+            $item = Goal::where('id',$request->todo)->first();//ここをget();にすると、ビューの表示ができなくなる。なぜ？
+            $msg = '２日目の目標はクリアしています。';
+                //var_dump($item);
+            return view('goal.second_day', compact('item','msg'));     
             }
         } else {
             $item = Goal::where('id',$request->todo)->first();
@@ -141,7 +156,11 @@ class AchievementController extends Controller
                 $item = Goal::where('id',$request->todo)->first();
                 //var_dump($item);
                 $msg = 'やったね！';
-                return view('goal.third_day', compact('item','msg'));     
+                return view('goal.third_day', compact('item','msg'));
+                } elseif ($achievement->progress === 7) {
+                $item = Goal::where('id',$request->todo)->first();
+                $msg = 'このテーマの目標は全てクリアしています。';
+                return view('goal.third_day', compact('item','msg'));
                 } elseif ($achievement->progress === 1) {
                 $item = Goal::where('id',$request->todo)->first();
                 $msg = 'まだ２日目の目標がクリアできていません。';
@@ -181,7 +200,11 @@ class AchievementController extends Controller
             $achievement->fill($form)->save();
             $item = Goal::where('id',$request->todo)->first();
             $msg = 'やったね！';
-            return view('goal.fourth_day', compact('item','msg'));     
+            return view('goal.fourth_day', compact('item','msg'));
+            } elseif ($achievement->progress === 7) {
+            $item = Goal::where('id',$request->todo)->first();
+            $msg = 'このテーマの目標は全てクリアしています。';
+            return view('goal.fourth_day', compact('item','msg'));
             } elseif ($achievement->progress === 2) {
             $item = Goal::where('id',$request->todo)->first();
             $msg = '３日目の目標がクリアできていません。';
@@ -223,7 +246,11 @@ class AchievementController extends Controller
             $item = Goal::where('id',$request->todo)->first();
             //var_dump($item);
             $msg = 'やったね！';
-            return view('goal.fifth_day', compact('item','msg'));     
+            return view('goal.fifth_day', compact('item','msg'));
+            } elseif ($achievement->progress === 7) {
+            $item = Goal::where('id',$request->todo)->first();
+            $msg = 'このテーマの目標は全てクリアしています。';
+            return view('goal.fifth_day', compact('item','msg'));
             } elseif ($achievement->progress === 3) {
             $item = Goal::where('id',$request->todo)->first();
             $msg = '４日目の目標がクリアできていません。';
@@ -268,7 +295,11 @@ class AchievementController extends Controller
             $item = Goal::where('id',$request->todo)->first();
             //var_dump($item);
             $msg = 'やったね！';
-            return view('goal.sixth_day', compact('item','msg'));     
+            return view('goal.sixth_day', compact('item','msg'));
+            } elseif ($achievement->progress === 7) {
+            $item = Goal::where('id',$request->todo)->first();
+            $msg = 'このテーマの目標は全てクリアしています。';
+            return view('goal.sixth_day', compact('item','msg'));
             } elseif ($achievement->progress === 4) {
             $item = Goal::where('id',$request->todo)->first();
             $msg = 'まだ５日目の目標がクリアできていません。';

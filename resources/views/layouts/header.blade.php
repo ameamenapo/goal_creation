@@ -10,10 +10,18 @@
 @section('header')
 <header class=header>
         <div class="header-logo">
-            <a href="/"><img src="/storage/logo.png" width="150px" height="150px"></a>    
+            <a href="/"><img src="/storage/logo.png" width="100px" height="100px"></a>    
         </div>
-        <div class="header-right">
-          <a href="/login">ログイン</a>
-        </div>
+            <div class="header-list">
+                <ul>
+                    <li><a href="/">ホーム</a></li>
+                    <li><a href="/user">目標ページ</a></li>
+                    <li><a href="/profile">マイページ</a></li>
+                    <li><a href="https://twitter.com/CreationGoal">twitter</a></li>
+                    <li><div class="header-right">
+                        <a href="/login">ログイン</a></div>
+                    </li>
+                </ul>
+            </div>
 </header>
 @endsection

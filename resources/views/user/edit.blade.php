@@ -70,7 +70,7 @@
         
     
     <footer>
-        <p>ここはフッター</p>
+       
     </footer>
 </body>
 </html>

@@ -7,8 +7,6 @@
     body { font-family: "Avenir Next"; }
     header { background-color: #ffc0cb; height: 170px; }
     .main { background-color: #deb887; height: 1000px; }
-    .movePage { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
     footer { background-color: #ffc0cb; height: 90px; }
     h1 { font-size: 50pt; text-align: left; color: white;
         margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
@@ -22,6 +20,7 @@
     .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s; }
     .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
     .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
+    .btn { padding: 8px 24px; color: white; display: inline-block; opacity: 0.8; }
     </style>
     <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -33,7 +32,7 @@
             <h2>〜暇を持て余したあなたへ〜</h2>
         </div>
         <div class="header-right">
-          <a  href="/user/logout">ログアウト</a>
+          <a class="login" href=" ">ログアウト</a>
         </div>
         <div class="header-list">
             <ul>
@@ -43,32 +42,37 @@
                 <li>マイページ</li>
             </ul>
         </div>
-        
     </header>
         
-        
+     
     <div class=main>
-        @if (Auth::check())
-        <tr><th>名前: {{$user->name}}</th></tr>
-        <tr><th>メール: {{$user->email}}</th></tr>
-        @else
-        <p>※ログインしていません。(<a href="/login">ログイン</a>|<a href="/register">登録</a>)</p>
-        @endif
+        <h1>目標削除ページ</h1>
+        <p>削除しますか？</p>
+        <form action="/goal_list/delete" method="post">
+    <table>
+        @csrf
+        <input type="hidden" name="id" value="{{$item->id}}">
+        <tr><th>テーマ: </th><td>{{optional($item)->theme}}</td></tr>
         
-        <h1>インデックスページ</h1>
-        <p><a class=movePage  href="{{action('GoalController@add') }}">目標を作成する</a></p>
-        <p><a class=movePage  href="{{action('GoalController@choose') }}">目標を選ぶ</a></p>
-        <p><a class=movePage  href="{{action('GoalController@index') }}">目標一覧</a></p>
-        <p><a class=movePage  href="{{action('AchievementController@index') }}">達成した目標</p>
-        <p><a class=movePage  href="{{action('ProfileController@index')}}">マイページ</p>
-        
+        <tr><th></th><td><input type="submit" value="目標を削除"></td></tr>
+    </table>    
+
+        <div class="btn-wrapper">
+            <a href="/goal/add" class="btn signup">目標を作成</a>
+            <a href="/goal" class="btn facebook">目標一覧へ</a>
+        </div>
     </div>
+      
+    
         
         
     
     <footer>
-        <p><a href="{{route('user.edit') }}?id={{optional($user)->id}}">会員情報編集</a></p>
-        <p><a href="user/destroy">退会する</a></p>
+        
     </footer>
 </body>
 </html>
+
+
+
+

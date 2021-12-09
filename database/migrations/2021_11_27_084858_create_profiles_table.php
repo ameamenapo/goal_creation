@@ -15,7 +15,7 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nickname')->default('名無しさん');
+            $table->string('nickname')->default('名無しさん');//このデフォルトは消したほうがいいかも。profielのeditでnicknameから文字で更新できなくなる。
             $table->string('profile_image')->default('default.png');
             $table->integer('age');
             $table->string('hobby');

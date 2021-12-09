@@ -48,12 +48,13 @@
     <div class=main>
         <h1>目標を編集する</h1>
         <p>{{$msg}}</p>
-        <form action="/goal/edit" method="post">
+    <form action="/goal/edit" method="post">
     <table>
         @csrf
         <input type="hidden" name="id" value="{{$item->id}}">
          {{--<tr><td><a href="{{ route('goal.edit') }}?id={{optional($item)->id}}">{{optional($item)->theme}}</a></td></tr>--}}
         <tr><th>テーマ: </th><td><input type="text" name="theme" value="{{optional($item)->theme}}"></td></tr>{{--goal/list2からのリンク付きで飛ばした時にこれつけるとテーマも編集できるようになる。--}}
+        <tr><th>{{$error}}</th></tr>
         <tr><th>1日目: </th><td><input type="text" name="first_day" value="{{optional($item)->first_day}}"></td></tr>
         <tr><th>2日目: </th><td><input type="text" name="second_day" value="{{optional($item)->second_day}}"></td></tr>
         <tr><th>3日目: </th><td><input type="text" name="third_day" value="{{optional($item)->third_day}}"></td></tr>
@@ -63,7 +64,7 @@
         <tr><th>7日目: </th><td><input type="text" name="seventh_day" value="{{optional($item)->seventh_day}}"></td></tr>
         <tr><th></th><td><input type="submit" value="目標を修正"></td></tr>
     </table>    
-
+    </form>
         <div class="btn-wrapper">
             <a href="/goal/add" class="btn signup">目標を作成</a>
             <a href="/goal" class="btn facebook">目標一覧へ</a>

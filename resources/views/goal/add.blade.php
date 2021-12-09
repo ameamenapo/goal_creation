@@ -36,9 +36,7 @@
         </div>
         <div class="header-list">
             <ul>
-                <li>facebook</li>
                 <li>twitter</li>
-                <li>企業の方</li>
                 <li>マイページ</li>
             </ul>
         </div>
@@ -52,6 +50,7 @@
     <table>
     @csrf    
         <tr><th>テーマ: </th><td><input type="text" name="theme"></td></tr>
+        <tr><th>{{$error}}</th></tr>
         <tr><th>1日目: </th><td><input type="text" name="first_day"></td></tr>
         <tr><th>2日目: </th><td><input type="text" name="second_day"></td></tr>
         <tr><th>3日目: </th><td><input type="text" name="third_day"></td></tr>
@@ -64,7 +63,7 @@
     </form>
 
         <div class="btn-wrapper">
-            <a href="/goal/list2" class="btn">自分の作成した目標たち</a>
+            <a href="/goal/list2" class="btn">自分の作成した目標</a>
             <a href="/goal" class="btn">目標一覧へ</a>
         </div>
     </div>

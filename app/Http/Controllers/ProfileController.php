@@ -16,38 +16,19 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //下のconstrunt()は、ログインユーザーでないと各viewにgetアクセスできないように設定している。
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $user_id = Auth::id();//Profileモデルファイルで、user_idを$fillableに移さないと、$user_idにdefaurtバリューないよっていう1364エラーになる。
-        //$profile = Profile::where('user_id', $user_id)->first();
-        //var_dump($profile);
-        //return view('profile.index', compact('profile'));
-        
-        //以下、新しくかいたコード こちらのコードでも動く。
-        //$profile = Profile::where('user_id', $user_id)->first();
-            //if (empty($profile)) {
-                //Profile::create([
-                //'nickname' => '名無しさん',
-                //'profile_image' => 'default.png',
-                //'hobby' => '',
-                //'a_word' => '',
-                //'user_id' => $user_id,
-            //]);
-        
-            //$profile = new Profile;
-            //$profile->fill($form)->save();
-            //$profile = Profile::where('user_id', $user_id)->first();
-            //return view('profile.index', compact('profile'));
-            //} else{
-               // $profile = Profile::where('user_id', $user_id)->first();
-                //var_dump($profile);
-                //return view('profile.index', compact('profile'));        
-            //}
-        
+     
         if(Profile::where('user_id', $user_id)->exists())
         {
             $profile = Profile::where('user_id', $user_id)->first();
-            //var_dump($profile);
             return view('profile.index', compact('profile'));    
         } else {
             
@@ -84,7 +65,7 @@ class ProfileController extends Controller
     {
         //var_dump($request->all());
         $this->validate($request, Profile::$rules);
-        var_dump($request->all());
+        //var_dump($request->all());
         $user_id = Auth::id();
         
         if ($file = $request->profile_image) {
@@ -109,7 +90,7 @@ class ProfileController extends Controller
 
         if (Profile::where('user_id', $user_id)->exists())
         {
-            // 何の処理を行う？
+            // 何の処理を行う？ここのifではすでにプロフィール画像が設定されていたが、新しい画像がアップロードされた時の処理。更新。
             // プロフィールの更新
             // ・名前
             // ・profile_image
@@ -133,11 +114,10 @@ class ProfileController extends Controller
             return view('profile.index', compact('profile'));
         } else {
             $profile = new Profile;
-            var_dump($profile);
-            var_dump($fileName);
+            //var_dump($profile);
+            //var_dump($fileName);
             $profile->id = $request->id;
-            $profile->nickname = '';
-            //$profile->profile_image = $request->profile_image->store('storage/app/public');//これ本当にいらないやつ
+            $profile->nickname = $request->nickname;
             // アップロードしてきた画像を保存する → X
             // 画像のファイル名を保存している。
             // アップロードしている
@@ -180,39 +160,38 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function add(Profile $profile)
-    {
-        $user_id = Auth::id();
-        $msg = "プロフィールを入力してください";
-        return view('profile.add',compact('msg'));     
-    }
+    //public function add(Profile $profile)
+    //{
+        //$user_id = Auth::id();
+        //$msg = "プロフィールを入力してください";
+        //return view('profile.add',compact('msg'));     
+    //}
     
-    public function create(Request $request)
-    {
-        $user_id = Auth::id();
-        $param = [
-            'nickname' => $request->nickname,
-            'age' => $request->age,
-            'hobby' => $request->hobby,
-            'a_word' => $request->a_word,
-            'profile_image' => $request->profile_image,
-            //'user_id' => $request->user_id,
-            'user_id' => $user_id,
-        ];
-        var_dump($param);
-        $profile = new Profile;
-        //var_dump($profile);
-        $form = $request->all();
-        unset($form['_token']);
-        $profile->fill($form)->save();
-        return view('profile.add', ['msg'=>'プロフィールを作成しました！']);   
-    }
+    //public function create(Request $request)
+    //{
+        //$user_id = Auth::id();
+        //$param = [
+            //'nickname' => $request->nickname,
+            //'age' => $request->age,
+            //'hobby' => $request->hobby,
+            //'a_word' => $request->a_word,
+            //'profile_image' => $request->profile_image,
+            //'user_id' => $user_id,
+        //];
+        //var_dump($param);
+        //$profile = new Profile;
+        //$form = $request->all();
+        //unset($form['_token']);
+        //$profile->fill($form)->save();
+        //return view('profile.add', ['msg'=>'プロフィールを作成しました！']);   
+    //}
+    
     public function edit(Request $request)
     {
         $profile = Profile::find($request->id);
         //var_dump($profile);
-        $msg = 'プロフィールを編集してください。';
-        return view('profile.edit', compact('profile','msg'));       
+        $msg = "";
+        return view('profile.edit', compact('profile', 'msg'));       
     }
 
     /**
@@ -228,14 +207,27 @@ class ProfileController extends Controller
          $profile = Profile::where('user_id', $user_id)->first();
          //$profile = Profile::find($request->id)->first();
             
-            $profile->nickname = $request->nickname;
-            $profile->age = $request->age;
-            $profile->hobby = $request->hobby;
-            $profile->a_word = $request->a_word;
-            $profile->save();
-            return view('profile.index', compact('profile'));
+            
+            $check_data = $request->age;//ここのif文は、年齢欄にちゃんと半角数字が入力されているかどうか判断するコード。
+            if(preg_match("/[^0-9]/", $check_data))
+            {
+                $msg= "！年齢は半角数字で入力してください！";
+                return view('profile.edit', compact('profile', 'msg'));     
+            } else {
+                
+                $profile->nickname = $request->nickname;
+                $profile->age = $request->age;
+                //①$newAge = $request->age;//①と②行のコードで、全角数字を入れても半角に変換できるようにしている。
+                //しかし実際は、上のif文で正規表現による数字チェックやってるので、いらない。全角数字か半角数字下のみの判断ならば、①②だけ追加すればいい。
+                //②$profile->age = mb_convert_kana($newAge, "na");//nは全角数字を半角へ変換、aは全角英数字を半角へ変換、というオプション。
+                $profile->hobby = $request->hobby;
+                $profile->a_word = $request->a_word;
+                $profile->save();
+                return view('profile.index', compact('profile'));   
+            }
     }
-
+    
+    
     /**
      * Remove the specified resource from storage.
      *

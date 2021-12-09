@@ -12,7 +12,7 @@
 </head>
 <body>
 
-@yield('header')
+@yield('header') 
 
 @yield('content')    
 

@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('user/logout', 'UserController@getLogout')->name('user.logout');//ログアウトに関するルーティング
+Route::post('user/logout', 'UserController@getLogout');
+//Route::get('user/logout',[
+//'uses' => 'UserController@getLogout',
+//'as' => 'user.logout'
+//]);
+
 //以下は目標一覧や目標作成などに関するルーティング
 Route::get('goal', 'GoalController@index');
 Route::get('goal/add', 'GoalController@add');
@@ -27,9 +35,15 @@ Route::get('goal/list', 'GoalController@choose');
 Route::get('goal/list1', 'GoalController@choose1');
 Route::get('goal/list2', 'GoalController@choose2');
 Route::get('goal/list3', 'GoalController@choose3');
-Route::post('goal', 'GoalController@register');
+Route::post('goal/list1', 'GoalController@register1');
+Route::post('goal/list2', 'GoalController@register2');
+Route::post('goal/list3', 'GoalController@register3');
+
 Route::get('goal/del_list', 'GoalController@delete');
 Route::post('goal/del_list', 'GoalController@remove');
+
+Route::get('goal_list/delete', 'Goal_listController@delete')->name('goal_list.delete');
+Route::post('goal_list/delete', 'Goal_listController@remove');
 
 //以下は目標達成に関するルーティング
 Route::get('goal/today_goal', 'GoalController@today_goal')->name('goal.today_goal');
@@ -57,7 +71,7 @@ Route::post('user/destroy', 'UserController@destroy');
 //以下はプロフィール編集に関するもの
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile', 'ProfileController@store');
-Route::get('/profile/edit', 'ProfileController@edit');
+Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
 Route::post('/profile/edit', 'ProfileController@update');
 
 

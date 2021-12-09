@@ -1,23 +1,42 @@
-@extends('layouts.goalapp')　{{--←元々は@extends('layouts.app')--}}
+@extends('layouts.goalapp')
 
-
+@section('title', 'Login')
 
 @section('stylesheet')
     {{--<link rel="stylesheet" href="reset.css">　　このファイルはもしCSSをリセットしたいならたすもの--}}
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     {{--<link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
      {{--以下はFont Awesome5を読み込んでいる。--}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
+@endsection
 
+@section('header')
+<header class=header>
+        <div class="header-logo">
+            <a href="/"><img src="/storage/logo.png" width="100px" height="100px"></a>    
+        </div>
+            <div class="header-list">
+                <ul>
+                    <li><a href="/">ホーム</a></li>
+                    <li><a href="/user">目標ページ</a></li>
+                    <li><a href="/profile">マイページ</a></li>
+                    <li><a href="https://twitter.com/CreationGoal">twitter</a></li>
+                    <li><div class="header-right">
+                        <a href="/user/logout">ログアウト</a></div>
+                    </li>
+                </ul>
+            </div>
+</header>
+@endsection
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="login-header">{{ __('Login') }}</div> {{--もとは<div class="card-header">{{ __('Login') }}</div>--}}
+                <div class="login-header">{{ __('ログイン') }}</div> {{--もとは<div class="card-header">{{ __('Login') }}</div>--}}
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -74,6 +93,9 @@
                                         パスワードを忘れましたか？
                                     </a>
                                 @endif
+                                
+                                <a href="/register">新規アカウント登録</a>
+                                
                             </div>
                         </div>
                     </form>
@@ -84,3 +106,4 @@
 </div>
 @endsection
 
+@include('layouts.footer') 

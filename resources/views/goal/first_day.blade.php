@@ -84,6 +84,7 @@
         </form>
             
         <div class="btn-wrapper">
+            <a href="{{ route('goal.today_goal') }}?id={{ optional($item)->id }}" class="btn">今週の目標へ</a>
             <a href="/goal" class="btn">目標一覧へ</a>
         </div>  
     </div>

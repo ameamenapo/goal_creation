@@ -51,16 +51,23 @@
     <div class=main>
         <h1>目標を選ぶ</h1>
         <p>アプリオリジナル目標</p>
-        <form action="/goal" method="post"> 
+        <form action="/goal/list1" method="post"> 
         <table>
         @csrf 
+        @if(isset($items)) 
+            @if($items->isEmpty())
+                <p>目標が登録されていないので、選べません。他の人の目標から選ぶか、自分で目標を作成しましょう！</p>
+            @else
+                <p>目標を選んでください。</p>    
+            @endif
+        @else
+            <p>{{$msg}}</p>
+        @endif
         <tr>目標テーマ一覧</tr>
-        
         @foreach($items as $item) 
         <tr>
-           
-            <label style="display:block;">
-                <input type="radio"  name="theme" value="{{$item->id}}">{{$item->theme}}
+            <label style="display:block;">{{--inputタグのtypeがradioの時は、requiredを追加すれば値が選択されてない時エラー出してくれる。--}}
+                <input type="radio"  name="theme" value="{{$item->id}}" required >{{$item->theme}}
             </label>
             
         </tr>

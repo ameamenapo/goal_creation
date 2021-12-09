@@ -25,6 +25,12 @@ class GoalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //下のconstrunt()は、ログインユーザーでないと各viewにgetアクセスできないように設定している。
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index(Request $request, Goal $goal)
     {
         $user_id = Auth::id(); 
@@ -47,11 +53,22 @@ class GoalController extends Controller
     
     public function add(Request $request)
     {
-        return view('goal.add', ['msg'=>'目標を作成してください']);
+        $error = "";
+        $msg = "目標を作成してください";
+        return view('goal.add', compact('error','msg'));
     }
    
     public function create(Request $request)
     {
+        $goal_theme = $request->theme;
+        if( empty($goal_theme) )
+        {
+            $error = "テーマを入力してください。";
+            $msg = "目標を作成してください";
+            return view('goal.add', compact('error','msg'));
+        } else {
+            
+        
         $param = [
             'classification' => $request->classification,
             'theme' => $request->theme,
@@ -70,7 +87,10 @@ class GoalController extends Controller
         $form = $request->all();
         unset($form['_token']);
         $goal_list->fill($form)->save();
-        return view('goal.add', ['msg'=>'目標を作成しました！']);
+        $error = "";
+        $msg = "目標を作成しました";
+        return view('goal.add', compact('error','msg'));
+        }
     }
 
     /**
@@ -106,13 +126,12 @@ class GoalController extends Controller
     public function edit(Request $request)
     {
         //$user_id = Auth::id();
-        //$items = Goal_list::where('user_id', $user_id)->first();
-    
-        
+        //$item = Goal_list::where('user_id', $user_id)->first();
         $item = Goal_list::find($request->id);
-        var_dump($item);
+        //var_dump($item);
+        $error = "";
         $msg = '目標を編集してください。';
-        return view('goal.edit', compact('item','msg'));
+        return view('goal.edit', compact('item','msg', 'error'));
         
     }
 
@@ -126,25 +145,35 @@ class GoalController extends Controller
     public function update(Request $request, Goal_list $goal_list)
     {
         
-        $param = [
-            'id' => $request->id,
-            'theme' => $request->theme,
-            'first_day' => $request->first_day,
-            'second_day' => $request->second_day,
-            'third_day' => $request->third_day,
-            'fourth_day' => $request->fourth_day,
-            'fifth_day' => $request->fifth_day,
-            'sixth_day' => $request->sixth_day,
-            'seventh_day' => $request->seventh_day,
-        ];
-        var_dump($param);
-        $goal_list = Goal_list::find($request->id);
-        $form = $request->all();
-        unset($form['_token']);
-        $goal_list->fill($form)->save();
-        $item = Goal_list::find($request->id);
-        $msg = '目標を編集しました！';
-        return view('goal.edit', compact('item','msg'));
+        $goal_theme = $request->theme;
+        if( empty($goal_theme) )
+        {
+            $item = Goal_list::find($request->id);
+            $error = "テーマを入力してください。";
+            $msg = "目標を作成してください";
+            return view('goal.edit', compact('item', 'error','msg'));
+        } else {
+            $param = [
+                'id' => $request->id,
+                'theme' => $request->theme,
+                'first_day' => $request->first_day,
+                'second_day' => $request->second_day,
+                'third_day' => $request->third_day,
+                'fourth_day' => $request->fourth_day,
+                'fifth_day' => $request->fifth_day,
+                'sixth_day' => $request->sixth_day,
+                'seventh_day' => $request->seventh_day,
+            ];
+            //var_dump($param);
+            $goal_list = Goal_list::find($request->id);
+            $form = $request->all();
+            unset($form['_token']);
+            $goal_list->fill($form)->save();
+            $item = Goal_list::find($request->id);
+            $error = "";
+            $msg = '目標を編集しました！';
+            return view('goal.edit', compact('item','msg', 'error'));
+            }
     }
     
 
@@ -161,7 +190,8 @@ class GoalController extends Controller
     
     public function choose(Request $request, Goal $goal)
     {
-        return view('goal.list');
+        $msg = "";
+        return view('goal.list', compact('msg'));
     }
     
     public function choose1(Request $request, Goal $goal)
@@ -173,14 +203,11 @@ class GoalController extends Controller
     
     public function choose2(Request $request, Goal $goal)
     {
-        // var_dump(Auth::user());
-        //var_dump(Auth::id());
         $user_id = Auth::id(); 
         //$items = Goal_list::where('user_id', $user_id)->get(); ペジネーション機能つけてない時のコード。
         $items = Goal_list::where('user_id', $user_id)->paginate(10);
         //var_dump($items);
-        //viewの方完成させたら上の->get()を->simplePaginate(10)とかに変えてページ数動かせるようになりたい。
-        return view('goal.list2', ['items' => $items]);
+        return view('goal.list2', compact('items'));
     }
 
     
@@ -189,8 +216,7 @@ class GoalController extends Controller
         // 条件:
         // ログインユーザー以外の人が作った目標
         $user_id = Auth::id();
-        //$items = Goal_list::where('user_id', '!=', $user_id)->where('user_id', '!=', 1 )->get(); ペジネーション機能つけてない時のコード。
-        $items = Goal_list::where('user_id', '!=', $user_id)->paginate(10);
+        $items = Goal_list::where('user_id', '!=', $user_id)->where('classification', '!=', 1)->paginate(10);
         //var_dump($items);
         //$items = Goal_list::where('user_id', '<>', $user_id)->get();の方が対応しているDB多いらしい。
         return view('goal.list3', ['items' => $items]);
@@ -202,7 +228,41 @@ class GoalController extends Controller
      * このメソッドでやることを書く。
      * ex.goal_listビューから選んだ目標を、goals へ登録する
      **/
-    public function register(Request $request)
+    public function register1(Request $request)
+    {
+        if(isset( $request->theme )){
+        $items = Goal_list::where('id', $request->theme)->first();
+        //var_dump($items);
+        
+        $form = [
+            'theme' => $items->theme,
+            'first_day' => $items->first_day,
+            'second_day' => $items->second_day,
+            'third_day' => $items->third_day,
+            'fourth_day' => $items->fourth_day,
+            'fifth_day' => $items->fifth_day,
+            'sixth_day' => $items->sixth_day,
+            'seventh_day' => $items->seventh_day,
+            'user_id' => Auth::id(), // user_idはログインユーザーのIDを取得する
+        ];
+        
+        $goal = new Goal;
+        $goal->fill($form)->save();
+        $user_id = Auth::id(); 
+        //$items = Goal::where('user_id', $user_id)->get();ペジネーション機能つけない時のやつ。
+        $items = Goal_list::where('user_id', $user_id)->paginate(3);
+        //var_dump($items);
+        //return view('goal.index', compact('items'));
+        return view('goal.list1', compact('items'));
+        } else {
+            $msg = "目標がありません";
+            $items = Goal_list::where('id', $request->theme)->paginate(3);
+            return view('goal.list1', compact('msg', 'items'));    
+        }    
+        
+    }
+    
+    public function register2(Request $request)
     {
         //registerアクションの作り方。
         // list1・2・3のビューで選んだテーマ（postされたtheme）のvalueはinputの中にある"{{$item->id}}"。nameがthemeになってるけど、あくまでvalueは"{{$item->id}}"。
@@ -219,10 +279,17 @@ class GoalController extends Controller
         //ただ、$formは$paramでもなんでもOK。ここでは$formとしているだけ。）
         //3 returnする。ビューで表示したい情報を渡す。（$formに入ってる情報全部itemsに入って渡せているので、today_goalビューではちゃんとthemeもfirst_dayも表示される。)
         
+        //下記は、$request->themeに何も入ってなければ、つまり、目標リストに一つも目標がない状態で登録ボタンを押しても目標は選べないから、
+        //絶対、$request->themeはnullじゃだめだよというコード。
+        
+        
+        if(isset( $request->theme )){
         $items = Goal_list::where('id', $request->theme)->first();
         //var_dump($items);
+        
         // goal_listsのidがあれば、全データは取れる。idが必要。
         // 以下はPOSTをまとめたもの。
+        
         $form = [
             'theme' => $items->theme,
             'first_day' => $items->first_day,
@@ -249,10 +316,51 @@ class GoalController extends Controller
         $goal->fill($form)->save();
         $user_id = Auth::id(); 
         //$items = Goal::where('user_id', $user_id)->get();ペジネーション機能つけない時のやつ。
+        $items = Goal_list::where('user_id', $user_id)->paginate(3);
+        //var_dump($items);
+        //return view('goal.index', compact('items'));
+        return view('goal.list2', compact('items'));
+        } else{
+            $msg = "目標がありません";
+            $items = Goal_list::where('id', $request->theme)->paginate(3);
+            return view('goal.list2', compact('msg', 'items'));
+        }
+    }
+    
+    public function register3(Request $request)
+    {
+        
+        if(isset( $request->theme )){
+        $items = Goal_list::where('id', $request->theme)->first();
+        //var_dump($items);
+        // goal_listsのidがあれば、全データは取れる。idが必要。
+        // 以下はPOSTをまとめたもの。
+        
+        $form = [
+            'theme' => $items->theme,
+            'first_day' => $items->first_day,
+            'second_day' => $items->second_day,
+            'third_day' => $items->third_day,
+            'fourth_day' => $items->fourth_day,
+            'fifth_day' => $items->fifth_day,
+            'sixth_day' => $items->sixth_day,
+            'seventh_day' => $items->seventh_day,
+            'user_id' => Auth::id(), // user_idはログインユーザーのIDを取得する
+        ];
+        
+        $goal = new Goal;
+        $goal->fill($form)->save();
+        $user_id = Auth::id(); 
+        //$items = Goal::where('user_id', $user_id)->get();ペジネーション機能つけない時のやつ。
         $items = Goal::where('user_id', $user_id)->paginate(3);
         //var_dump($items);
-        return view('goal.index', compact('items'));
-        
+        //return view('goal.index', compact('items'));
+        return view('goal.list3', compact('items'));
+        } else {
+            $msg = "目標がありません";
+            $items = Goal_list::where('id', $request->theme)->paginate(3);
+            return view('goal.list3', compact('msg', 'items'));    
+        }
     }
     
     public function delete(Request $request, Goal $goal)

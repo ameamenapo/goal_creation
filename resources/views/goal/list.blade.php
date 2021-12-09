@@ -47,6 +47,7 @@
         
     <div class=main>
         <h1>目標を選ぶ</h1>
+        <p>{{$msg}}</p>
         <a class="btn" href="{{action('GoalController@choose1') }}">アプリオリジナル目標</a>
         <a class="btn" href="{{ action('GoalController@choose2') }}">自分で作成した目標</a>
         <a class="btn" href="{{ action('GoalController@choose3') }}">他のユーザーが作成した目標</a>
