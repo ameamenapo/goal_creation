@@ -12,24 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
 @endsection
 
-@section('header')
-<header class=header>
-        <div class="header-logo">
-            <a href="/"><img src="/storage/logo.png" width="100px" height="100px"></a>    
-        </div>
-            <div class="header-list">
-                <ul>
-                    <li><a href="/">ホーム</a></li>
-                    <li><a href="/user">目標ページ</a></li>
-                    <li><a href="/profile">マイページ</a></li>
-                    <li><a href="https://twitter.com/CreationGoal">twitter</a></li>
-                    <li><div class="header-right">
-                        <a href="/user/logout">ログアウト</a></div>
-                    </li>
-                </ul>
-            </div>
-</header>
-@endsection
+@include('layouts.header') 
 
 @section('content')
 <div class="container">
@@ -81,21 +64,21 @@
                                 </div>
                             </div>
                         </div>
-
+                        
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    ログイン
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        パスワードを忘れましたか？
-                                    </a>
-                                @endif
-                                
-                                <a href="/register">新規アカウント登録</a>
-                                
+                                   <button type="submit" class="btn btn-primary">
+                                        ログイン
+                                    </button>
+                                    @if (Route::has('password.request'))
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            パスワードを忘れましたか？
+                                        </a>
+                                    @endif
+                                <div class="login-bottom">
+                                    <a href="/register">新規アカウント登録</a>
+                                </div>
                             </div>
                         </div>
                     </form>

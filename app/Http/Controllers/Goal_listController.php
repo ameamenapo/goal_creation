@@ -91,8 +91,8 @@ class Goal_listController extends Controller
     //自分の作った目標を削除するアクション。
     public function delete(Request $request)
     {   
-        $user_id = Auth::id();
-        $item = Goal_list::where('user_id', $user_id)->first();
+        $user_id = Auth::id();  //goal_list/delete.blade.phpの中でテーマについてるinputタグにnameプロパティがidとなっている。
+        $item = Goal_list::where('user_id', $user_id)->where('id', $request->id)->first();//なので、$request->idとしてそのユーザーのgoal_listのidと一致するものを取得。
         return view('goal_list.delete', ['item' => $item]);
     }
     

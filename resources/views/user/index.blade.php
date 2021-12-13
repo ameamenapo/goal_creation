@@ -1,74 +1,38 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>Goal creation</title>
-    <style>
-    body { font-family: "Avenir Next"; }
-    header { background-color: #ffc0cb; height: 170px; }
-    .main { background-color: #deb887; height: 1000px; }
-    .movePage { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
-    footer { background-color: #ffc0cb; height: 90px; }
-    h1 { font-size: 50pt; text-align: left; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    h2 { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    p { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
-    ul { font-size: 12pt;}
-    li { list-style: none; }
-    .header-list li { float: right; padding: 30px 20px; }
-    .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s; }
-    .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
-    .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
-    </style>
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-    <header>
-        <div class="header-logo">
-            <h1>誰か目標作ってくれないかな</h1>
-            <h2>〜暇を持て余したあなたへ〜</h2>
-        </div>
-        <div class="header-right">
-          <a  href="/user/logout">ログアウト</a>
-        </div>
-        <div class="header-list">
-            <ul>
-                <li>facebook</li>
-                <li>twitter</li>
-                <li>企業の方</li>
-                <li>マイページ</li>
-            </ul>
-        </div>
-        
-    </header>
-        
-        
+@extends('layouts.goalapp')
+
+@section('title', 'Logout')
+
+@section('stylesheet')
+   
+@endsection
+
+@include('layouts.header')        
+@section('content')    
     <div class=main>
-        @if (Auth::check())
-        <tr><th>名前: {{$user->name}}</th></tr>
-        <tr><th>メール: {{$user->email}}</th></tr>
-        @else
-        <p>※ログインしていません。(<a href="/login">ログイン</a>|<a href="/register">登録</a>)</p>
-        @endif
-        
-        <h1>インデックスページ</h1>
-        <p><a class=movePage  href="{{action('GoalController@add') }}">目標を作成する</a></p>
-        <p><a class=movePage  href="{{action('GoalController@choose') }}">目標を選ぶ</a></p>
-        <p><a class=movePage  href="{{action('GoalController@index') }}">目標一覧</a></p>
-        <p><a class=movePage  href="{{action('AchievementController@index') }}">達成した目標</p>
-        <p><a class=movePage  href="{{action('ProfileController@index')}}">マイページ</p>
-        
+        <h1 class="menu-title">Menu</h1>
+        <div class="menu">
+{{--クリック範囲を広げるために、aタグの中にdivタグ入れてクラスめいつけてる。こうするとCSSで簡単にdisplay:block;でクリック範囲親要素にできる。--}}
+            <a href="{{action('GoalController@add') }}">
+               <div class="menu-item">目標を作成する</div>
+            </a>
+            <a href="{{action('GoalController@choose') }}">
+                <div class="menu-item">目標を選ぶ</div>
+            </a>
+            <a href="{{action('GoalController@index') }}">
+                <div class="menu-item">目標一覧</div>
+            </a>
+            <a href="{{action('AchievementController@index') }}">
+                <div class="menu-item">達成した目標</div>
+            </a>
+            <a href="{{action('ProfileController@index')}}">
+                <div class="menu-item">マイページ</div>
+            </a>
+        </div>
+        <div class=menu-header>
+        <a href="{{route('user.edit')}}?id={{ optional($user)->id}}">アカウント情報の編集</a>
+        <a href="{{action('UserController@destroy')}}">退会する
+        </div>
     </div>
-        
-        
-    
-    <footer>
-        <p><a href="{{route('user.edit') }}?id={{optional($user)->id}}">会員情報編集</a></p>
-        <p><a href="user/destroy">退会する</a></p>
-    </footer>
-</body>
-</html>
+@endsection
+
+@include('layouts.footer')

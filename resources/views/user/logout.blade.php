@@ -4,14 +4,16 @@
 
 @section('stylesheet')
     {{--<link rel="stylesheet" href="reset.css">　　このファイルはもしCSSをリセットしたいならたすもの--}}
-    <link rel="stylesheet" href="/css/styles.css" type="text/css">{{--href="/css/styles.css"の/cssの部分。このスラッシュナイト読み込めない！--}}
+    <link rel="stylesheet" href="/css/styles.css">
     {{--<link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
      {{--以下はFont Awesome5を読み込んでいる。--}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
 @endsection
-@include('layouts.header')
+
+@include('layouts.header') 
+
 @section('content')
 <div class="main-logout">
 <div class="container">

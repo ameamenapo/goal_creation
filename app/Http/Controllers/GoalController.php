@@ -34,7 +34,7 @@ class GoalController extends Controller
     public function index(Request $request, Goal $goal)
     {
         $user_id = Auth::id(); 
-        $items = Goal::where('user_id', $user_id)->paginate(3);
+        $items = Goal::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         //$items = Goal::where('user_id', $user_id)->get();　ぺ時ネーション機能がついてない時のコード。
         // リダイレクトについて
@@ -190,14 +190,15 @@ class GoalController extends Controller
     
     public function choose(Request $request, Goal $goal)
     {
-        $msg = "";
-        return view('goal.list', compact('msg'));
+        return view('goal.list');
+        //$msg = "";
+        //return view('goal.list', compact('msg'));  なぜメッセージ持たせたか思い出せない‥。
     }
     
     public function choose1(Request $request, Goal $goal)
     {
         //$items = Goal_list::where('classification', 1)->get(); ペジネーション機能つけてない時のコード。
-        $items = Goal_list::where('classification', 1)->paginate(10);
+        $items = Goal_list::where('classification', 1)->paginate(6);
         return view('goal.list1', ['items' => $items]);
     }
     
@@ -205,7 +206,7 @@ class GoalController extends Controller
     {
         $user_id = Auth::id(); 
         //$items = Goal_list::where('user_id', $user_id)->get(); ペジネーション機能つけてない時のコード。
-        $items = Goal_list::where('user_id', $user_id)->paginate(10);
+        $items = Goal_list::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         return view('goal.list2', compact('items'));
     }
@@ -216,7 +217,7 @@ class GoalController extends Controller
         // 条件:
         // ログインユーザー以外の人が作った目標
         $user_id = Auth::id();
-        $items = Goal_list::where('user_id', '!=', $user_id)->where('classification', '!=', 1)->paginate(10);
+        $items = Goal_list::where('user_id', '!=', $user_id)->where('classification', '!=', 1)->paginate(6);
         //var_dump($items);
         //$items = Goal_list::where('user_id', '<>', $user_id)->get();の方が対応しているDB多いらしい。
         return view('goal.list3', ['items' => $items]);
@@ -250,13 +251,13 @@ class GoalController extends Controller
         $goal->fill($form)->save();
         $user_id = Auth::id(); 
         //$items = Goal::where('user_id', $user_id)->get();ペジネーション機能つけない時のやつ。
-        $items = Goal_list::where('user_id', $user_id)->paginate(3);
+        $items = Goal_list::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         //return view('goal.index', compact('items'));
         return view('goal.list1', compact('items'));
         } else {
             $msg = "目標がありません";
-            $items = Goal_list::where('id', $request->theme)->paginate(3);
+            $items = Goal_list::where('id', $request->theme)->paginate(6);
             return view('goal.list1', compact('msg', 'items'));    
         }    
         
@@ -316,13 +317,13 @@ class GoalController extends Controller
         $goal->fill($form)->save();
         $user_id = Auth::id(); 
         //$items = Goal::where('user_id', $user_id)->get();ペジネーション機能つけない時のやつ。
-        $items = Goal_list::where('user_id', $user_id)->paginate(3);
+        $items = Goal_list::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         //return view('goal.index', compact('items'));
         return view('goal.list2', compact('items'));
         } else{
             $msg = "目標がありません";
-            $items = Goal_list::where('id', $request->theme)->paginate(3);
+            $items = Goal_list::where('id', $request->theme)->paginate(6);
             return view('goal.list2', compact('msg', 'items'));
         }
     }
@@ -352,13 +353,13 @@ class GoalController extends Controller
         $goal->fill($form)->save();
         $user_id = Auth::id(); 
         //$items = Goal::where('user_id', $user_id)->get();ペジネーション機能つけない時のやつ。
-        $items = Goal::where('user_id', $user_id)->paginate(3);
+        $items = Goal::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         //return view('goal.index', compact('items'));
         return view('goal.list3', compact('items'));
         } else {
             $msg = "目標がありません";
-            $items = Goal_list::where('id', $request->theme)->paginate(3);
+            $items = Goal_list::where('id', $request->theme)->paginate(6);
             return view('goal.list3', compact('msg', 'items'));    
         }
     }

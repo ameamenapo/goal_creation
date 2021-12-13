@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;//パスワードリセット
+use Illuminate\Support\Facades\Password;//パスワードリセット
+use Illuminate\Auth\Events\PasswordReset;//パスワードリセット
+use Illuminate\Support\Facades\Hash;//パスワードリセット
+use Illuminate\Support\Str;//パスワードリセット
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +22,61 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('user/logout', 'UserController@getLogout')->name('user.logout');//ログアウトに関するルーティング
+//以下はログアウトに関するルーティング
+Route::get('user/logout', 'UserController@getLogout')->name('user.logout');
 Route::post('user/logout', 'UserController@getLogout');
 //Route::get('user/logout',[
 //'uses' => 'UserController@getLogout',
 //'as' => 'user.logout'
 //]);
+
+
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');//パスワードリセット
+
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+    
+    return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');//パスワードリセット
+
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');//パスワードリセット
+
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|min:8|confirmed',
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->setRememberToken(Str::random(60));
+
+            $user->save();
+
+            event(new PasswordReset($user));
+        }
+    );
+
+    return $status === Password::PASSWORD_RESET
+                ? redirect()->route('login')->with('status', __($status))
+                : back()->withErrors(['email' => [__($status)]]);
+})->middleware('guest')->name('password.update');//パスワードリセット
+
 
 //以下は目標一覧や目標作成などに関するルーティング
 Route::get('goal', 'GoalController@index');
@@ -38,12 +91,10 @@ Route::get('goal/list3', 'GoalController@choose3');
 Route::post('goal/list1', 'GoalController@register1');
 Route::post('goal/list2', 'GoalController@register2');
 Route::post('goal/list3', 'GoalController@register3');
-
-Route::get('goal/del_list', 'GoalController@delete');
-Route::post('goal/del_list', 'GoalController@remove');
-
-Route::get('goal_list/delete', 'Goal_listController@delete')->name('goal_list.delete');
-Route::post('goal_list/delete', 'Goal_listController@remove');
+Route::get('goal/del_list', 'GoalController@delete');//目標一覧から目標を削除する
+Route::post('goal/del_list', 'GoalController@remove');//目標一覧から目標を削除する
+Route::get('goal_list/delete', 'Goal_listController@delete')->name('goal_list.delete');//自分の作った目標を削除する。完全にその目標が消えるということ。
+Route::post('goal_list/delete', 'Goal_listController@remove');//自分の作った目標を削除する。完全にその目標が消えるということ。
 
 //以下は目標達成に関するルーティング
 Route::get('goal/today_goal', 'GoalController@today_goal')->name('goal.today_goal');
@@ -64,10 +115,10 @@ Route::post('goal/seventh_day', 'AchievementController@seventh_post');
 Route::get('goal/achievement', 'AchievementController@index');
 //以下はユーザー情報に関するもの
 Route::get('user', 'UserController@index');
-Route::get('user/edit', 'UserController@edit')->name('user.edit');
-Route::post('user/edit', 'UserController@update');
-Route::get('user/destroy', 'UserController@withdrawal');
-Route::post('user/destroy', 'UserController@destroy');
+Route::get('user/edit', 'UserController@edit')->name('user.edit');//ユーザー情報の編集
+Route::post('user/edit', 'UserController@update');//ユーザー情報の編集
+Route::get('user/destroy', 'UserController@withdrawal');//退会する
+Route::post('user/destroy', 'UserController@destroy');//退会する
 //以下はプロフィール編集に関するもの
 Route::get('/profile', 'ProfileController@index');
 Route::post('/profile', 'ProfileController@store');

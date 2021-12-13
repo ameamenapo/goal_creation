@@ -3,36 +3,56 @@
 @section('title', 'Login')
 
 @section('stylesheet')
-    {{--<link rel="stylesheet" href="reset.css">　　このファイルはもしCSSをリセットしたいならたすもの--}}
-    <link rel="stylesheet" href="/css/styles.css">
-    {{--<link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
-     {{--以下はFont Awesome5を読み込んでいる。--}}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
+    
 @endsection
 
-@section('header')
-<header class=header>
-        <div class="header-logo">
-            <a href="/"><img src="/storage/logo.png" width="100px" height="100px"></a>    
-        </div>
-            <div class="header-list">
-                <ul>
-                    <li><a href="/">ホーム</a></li>
-                    <li><a href="/user">目標ページ</a></li>
-                    <li><a href="/profile">マイページ</a></li>
-                    <li><a href="https://twitter.com/CreationGoal">twitter</a></li>
-                    <li><div class="header-right">
-                        <a href="/user/logout">ログアウト</a></div>
-                    </li>
-                </ul>
-            </div>
-</header>
-@endsection
+@include('layouts.header')
+
 @section('content')
-    <div class=main>
-        <h1>マイページ</h1>
+<div class="main">
+    <h1 class="profile-title">My page</h1>
+    <div class="profile-wrapper">
+        {{--<div class="profile-title">My page</div>--}}
+    {{--<h1 class="profile-title">My page</h1>--}}    
+            <div class="profile-image">
+                <form action="/profile" method="post" enctype="multipart/form-data">
+                <table>
+                    {{ csrf_field() }}{{--以下のtype="hidden"〜がないと、画像を更新したときに他のプロフィール情報が消えちゃう--}}
+                <input type="hidden" name="id" value="{{$profile->id}}">
+                <input type="hidden" name="user_id" value="{{$profile->user_id}}">
+                <input type="hidden" name="nickname" value="{{$profile->nickname}}">
+                <input type="hidden" name="age" value="{{$profile->age}}">
+                <input type="hidden" name="hobby" value="{{$profile->hobby}}">
+                <input type="hidden" name="a_word" value="{{$profile->a_word}}">
+                <img src="/storage/{{$profile->profile_image}}" width="600" height="500">
+                
+                <tr><div class="profile-image-bottom"><td rowspan="2">プロフィール画像</td>
+                <td><label><input type="file" name="profile_image">ファイル選択</label></td></div></tr>
+                <tr><td><input type="submit" value="アップロード"></td></tr>
+                
+                {{--<tr><th>プロフィール画像: </th><td><label><input type="file" name="profile_image">ファイル選択</label></td></tr>
+                <tr><th><td></th><input type="submit" value="アップロードする"></td></tr>--}}
+                </table>
+                </form> 
+            {{--<復活させるならここ/div>
+            <div class="profile-items">--}}
+                
+                <input type="hidden" name="id" value="{{$profile->id}}">
+                <input type="hidden" name="user_id" value="{{$profile->user_id}}">
+                <tr><div class="profile-items"><th>ニックネーム</th><br><td>{{optional($profile)->nickname}}</td></div></tr><br>
+                <tr><div class="profile-items"><th>年齢</th><br><td>{{optional($profile)->age}}</td></div></tr><br>
+                <tr><div class="profile-items"><th>趣味</th><br><td>{{optional($profile)->hobby}}</td></div></tr><br>
+                <tr><div class="profile-items"><th>ひとこと</th><br><td>{{optional($profile)->a_word}}</td></div></tr>
+               
+            </div>
+            <div class="profile-btn-wrapper">
+                <a href="{{route('profile.edit')}}?id={{ optional($profile)->id}}">編集</a>
+                <a href="/user">メニューへ</a>
+            </div>  
+    </div>
+</div>
+        
+        {{--<div class=main>
         <form action="/profile" method="post" enctype="multipart/form-data">
         <table>
         {{ csrf_field() }}
@@ -51,7 +71,7 @@
         <div class="btn-wrapper">
             <a href="{{route('profile.edit')}}?id={{ optional($profile)->id}}">編集</a>
             <a href="/user" class="btn">インデックスへ</a>
-        </div>
-    </div>
+        </div>--}}
+    
 @endsection
 @include('layouts.footer') 

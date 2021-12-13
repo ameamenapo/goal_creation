@@ -1,94 +1,59 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>Goal creation</title>
-    <style>
-    body { font-family: "Avenir Next"; }
-    header { background-color: #ffc0cb; height: 170px; }
-    .main { background-color: #deb887; height: 1000px; }
-    footer { background-color: #ffc0cb; height: 90px; }
-    h1 { font-size: 50pt; text-align: left; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    h2 { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    p { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
-    ul { font-size: 12pt;}
-    li { list-style: none; }
-    .header-list li { float: right; padding: 30px 20px; }
-    .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s; }
-    .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
-    .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
-    </style>
-    {{--<link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
-    <link rel="stylesheet" href="css/styles.css"> {{--ここはオリジナルのCSS読み込んでいる。でもあんま効力なさない？--}}
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> {{--ここはbootstrap読み込んでいる--}}      
-</head>
-<body>
-    <header>
-        <div class="header-logo">
-            <h1>誰か目標作ってくれないかな</h1>
-            <h2>〜暇を持て余したあなたへ〜</h2>
-        </div>
-        <div class="header-right">
-          <a class="btn" href=" ">ログアウト</a>
-        </div>
-        <div class="header-list">
-            <ul>
-                <li>facebook</li>
-                <li>twitter</li>
-                <li>企業の方</li>
-                <li>マイページ</li>
-            </ul>
-        </div>
+@extends('layouts.goalapp')
+
+@section('title', 'List')
+
+@section('stylesheet')
+  
+@endsection
+
+@include('layouts.header') 
+
+@section('content') 
+<div class="list2-main"> {{--list2-mainについては、CSSで何も設定してない。そしたらフッターの余白無くなった‥。--}}
         
-    </header>
+        <h1 class="list-title">自分で作成した目標</h1>
         
-        
-    <div class=main>
-        <h1>目標を選ぶ</h1>
-        <p>自分で作成した目標</p>
-        <form action="/goal/list2" method="post"> 
+        <form action="/goal/list2" method="post">
         <table>
         @csrf 
         @if(isset($items)) 
             @if($items->isEmpty())
-                <p>目標が登録されていないので、選べません。他の人の目標から選ぶか、自分で目標を作成しましょう！</p>
+                <p class="list-title-p">目標が登録されていません。他の人の目標から選ぶか、自分で目標を作成しましょう！</p>
             @else
-                <p>目標を選んでください。</p>    
+                <p class="list-title-p">目標を選んでください。</p>    
             @endif
         @else
-            <p>{{$msg}}</p>
+            <p class="list-title-p">{{$msg}}</p>
         @endif
-        <tr>目標テーマ一覧</tr> 
+
         @foreach($items as $item)
         <tr>
-            <label style="display:block;">
-                <input type="radio"  name="theme" value="{{optional($item)->id}}" required>{{optional($item)->theme}}
-                <a href="{{ route('goal.edit') }}?id={{ optional($item)->id }}">編集</a><br>
-                <a href="{{ route('goal_list.delete') }}?id={{ optional($item)->id }}">削除</a><br>
-            </label>
+            <div class="list2-wrapper">{{--フレックスボックスの親--}}
+            <div class="list2-item">{{--フレックスボックスの子--}}
+            {{--<label style="display:block;">--}}
+                <input type="radio"  name="theme" value="{{optional($item)->id}}" id="mine-goal" style="transform:scale(1.5);"required>
+                    <label for="mine-goal">{{optional($item)->theme}}</label><br>
+                <a href="{{ route('goal.edit') }}?id={{ optional($item)->id }}">編集</a>
+                <a href="{{ route('goal_list.delete') }}?id={{ optional($item)->id }}">削除</a>
+            {{--</label>--}}
+            </div>{{--フレックスボックスの子の閉じタグ--}}
         </tr>
         @endforeach
-         
-        <tr><th></th><td><input type="submit" value="目標一覧へ追加"></td></tr>
-       
-    
+        </div>{{--フレックスボックスの親の閉じタグ--}} 
+            <tr><th></th><td><div class="list2-submit"><input type="submit" value="目標一覧へ追加"></div></td></tr>
         </table>
-        {{ $items->links() }}
-        {{--{{ $items->links('pagination::bootstrap-4') }}上記の表記で大丈夫--}}
+        {{--{{ $items->links() }}元の位置--}}
         </form>
-        <a href="/goal/list" class="btn">他の目標を見る</a>
-        <a href="/goal" class="btn">目標一覧へ</a>
-    </div>
-   
-    
-        
-    
-    <footer>
-        <p>ここはフッター</p>
-    </footer>
-</body>
-</html>
+        <div class="pagination-parent">
+            <div class="pagination-child">   
+            {{ $items->links() }}
+            </div>
+        </div>
+        <div class="list2-bottom">
+            <a href="/goal/list">他の目標を見る</a>
+            <a href="/goal">目標一覧へ</a>
+        </div>    
+</div>
+   @endsection
+
+@include('layouts.footer')

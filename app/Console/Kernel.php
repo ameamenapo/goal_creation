@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('auth:clear-resets')->everyFifteenMinutes();//パスワードリセットの期限切れトークン削除のため追加
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;//退会機能をつけるにあたり追加。
+use Illuminate\Contracts\Auth\CanResetPassword;//パスワードリセットの際のメール送信できるようにするために追加。
 
 class User extends Authenticatable
 {

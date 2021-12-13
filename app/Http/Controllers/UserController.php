@@ -16,11 +16,7 @@ class UserController extends Controller
         $this->middleware('auth');
     }
     
-    //public function getLogout()
-    //{
-        //Auth::logout();
-        //return redirect()->route('/welcom');//ログアウトした先のページを指定。
-    //}
+    
     public function getLogout(){
         return view('user/logout');
     }

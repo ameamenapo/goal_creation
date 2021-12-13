@@ -1,55 +1,49 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>Goal creation</title>
-    <style>
-    body { font-family: "Avenir Next"; }
-    header { background-color: #ffc0cb; height: 170px; }
-    .main { background-color: #deb887; height: 1000px; }
-    footer { background-color: #ffc0cb; height: 90px; }
-    h1 { font-size: 50pt; text-align: left; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    h2 { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    p { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
-    ul { font-size: 12pt;}
-    li { list-style: none; }
-    .header-list li { float: right; padding: 30px 20px; }
-    .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s; }
-    .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
-    .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
-    .btn { padding: 8px 24px; color: white; display: inline-block; opacity: 0.8; }
-    </style>
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-    <header>
+@extends('layouts.goalapp')
+
+@section('title', 'Login')
+
+@section('stylesheet')
+    {{--<link rel="stylesheet" href="reset.css">　　このファイルはもしCSSをリセットしたいならたすもの--}}
+    <link rel="stylesheet" href="/css/styles.css">
+    {{--<link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
+     {{--以下はFont Awesome5を読み込んでいる。--}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
+@endsection
+
+@section('header')
+<header class=header>
         <div class="header-logo">
-            <h1>誰か目標作ってくれないかな</h1>
-            <h2>〜暇を持て余したあなたへ〜</h2>
+            <a href="/"><img src="/storage/logo.png" width="100px" height="100px"></a>    
         </div>
-        <div class="header-right">
-          <a class="login" href=" ">ログアウト</a>
-        </div>
-        <div class="header-list">
-            <ul>
-                <li>facebook</li>
-                <li>twitter</li>
-                <li>企業の方</li>
-                <li>マイページ</li>
-            </ul>
-        </div>
-    </header>
-        
+            <div class="header-list">
+                <ul>
+                    <li><a href="/">ホーム</a></li>
+                    <li><a href="/user">目標ページ</a></li>
+                    <li><a href="/profile">マイページ</a></li>
+                    <li><a href="https://twitter.com/CreationGoal">twitter</a></li>
+                    <li><div class="header-right">
+                        <a href="/user/logout">ログアウト</a></div>
+                    </li>
+                </ul>
+            </div>
+</header>
+@endsection
+@section('content') 
      
     <div class=main>
         <h1>退会画面</h1>
         <p>{{$msg}}</p>
         
-        <form action="/user/destroy" method="post">
+        <script>{{--javascriptを使ってポップアップを出している。--}}
+            function confirm_test() {
+            var select = confirm("退会しますか？「OK」で送信。「キャンセル」で送信中止。");
+            return select;
+            }
+        </script>
+        
+        <form action="/user/destroy" method="post" onsubmit="return confirm_test()">
         <table>
          @csrf
         
@@ -58,6 +52,7 @@
             <input type="hidden" name="id" value="{{$user->id}}">
             <tr><th></th><td><input type="submit" value="退会する"></td></tr>
             
+           
         </table>
         </form>
 
@@ -65,13 +60,5 @@
             <a href="/user" class="btn">インデックスへ</a>
         </div>
     </div>
-      
-    
-        
-        
-    
-    <footer>
-        <p>ここはフッター</p>
-    </footer>
-</body>
-</html>
+    @endsection
+@include('layouts.footer') 
