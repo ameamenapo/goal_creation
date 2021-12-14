@@ -125,6 +125,9 @@ Route::post('/profile', 'ProfileController@store');
 Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
 Route::post('/profile/edit', 'ProfileController@update');
 
+//以下は問い合わせに関するルーティング
+Route::get('inquiry', 'InquiryController@form');
+
 
 //以下の二行はphp artisan make:authしてauth機能を追加したら自動的に追加されたもの。
 Auth::routes();

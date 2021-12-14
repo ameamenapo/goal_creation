@@ -57,7 +57,7 @@
         </form>
 
         <div class="btn-wrapper">
-            <a href="/user" class="btn">インデックスへ</a>
+            <a href="/user" class="btn">メニューページへ</a>
         </div>
     </div>
     @endsection

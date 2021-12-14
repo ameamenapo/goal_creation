@@ -1,6 +1,6 @@
 @extends('layouts.goalapp')
 
-@section('title', 'Welcom')
+@section('title', 'Add')
 
 @section('stylesheet')
 
@@ -10,15 +10,16 @@
     <div class=main-add>
         <h1 class="add-title">目標を作成する</h1>
         <p class="add-msg">{{$msg}}</p>
+        <p class="edit-error">{{$error}}</p>
         
     <form action="/goal/add" method="post">    
     <table>
         @csrf
         <div class="goal-add-wrapper">
             <div class="goal-add"><p id="add-title">テーマ</p>
-	        <label class="add-item">
-	        <input type="text" name="theme" placeholder="入力欄">
-	        </label>
+	            <label class="add-item">
+	            <input type="text" name="theme" placeholder="入力欄">
+	            </label>
             </div>
             <div class="goal-add"><p id="add-title">１日め</p>
 	            <label class="add-item">

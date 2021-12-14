@@ -63,7 +63,7 @@ class GoalController extends Controller
         $goal_theme = $request->theme;
         if( empty($goal_theme) )
         {
-            $error = "テーマを入力してください。";
+            $error = "ーー テーマを入力してください ーー";
             $msg = "目標を作成してください";
             return view('goal.add', compact('error','msg'));
         } else {
@@ -130,7 +130,7 @@ class GoalController extends Controller
         $item = Goal_list::find($request->id);
         //var_dump($item);
         $error = "";
-        $msg = '目標を編集してください。';
+        $msg = "";
         return view('goal.edit', compact('item','msg', 'error'));
         
     }
@@ -149,7 +149,7 @@ class GoalController extends Controller
         if( empty($goal_theme) )
         {
             $item = Goal_list::find($request->id);
-            $error = "テーマを入力してください。";
+            $error = "ーー テーマを入力してください ーー";
             $msg = "目標を作成してください";
             return view('goal.edit', compact('item', 'error','msg'));
         } else {

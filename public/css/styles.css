@@ -5,8 +5,15 @@
 
 body { font-family: "Avenir Next"; margin: 0; padding: 0px;}
 header { background-color: #ffc0cb; height: 120px; margin: 0; padding: 0px;}
- .main { background-color: #f5f5f5; height: 1200px; margin: 0px; padding: 0px; }
-footer { background-color: #ffc0cb; height: 90px; margin: 0px; padding: 0px;}
+.goalapp-container{ /*フッターの位置を固定するために、フレックスボックスを用いた。*/
+    display: flex; /*フレックスボックスにする。*/
+    flex-direction: column;　/*header〜footerを縦並びにする。*/
+    min-height: 100vh; /*ブラウザにより画面のサイズは違うが、100vhとするとどのブラウザでも対応するらしい。*/
+}
+ .main { background-color:#f5f5f5;}
+footer { background-color: #ffc0cb; height: 90px;margin: 0; padding: 0px;
+    margin-top: auto; /*footerの上にmarginをつけて一番下に表示するようにした*/
+}
 h1 { font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
       font-size: 50pt; color:#db7093; text-align: left;
       margin:0px; padding: 0px; letter-spacing: 0.1em;　}
@@ -151,19 +158,20 @@ li { list-style: none; float:left;  padding: 33px 20px;}
 .profile-title {text-align: center; padding-top: 20px; padding-bottom: 20px;}
 .profile-wrapper {
   width: 1000px;
-  height: 1200px;
+  height: 680px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   background-color: white;
   justify-content: center;
 }
-.profile-image{ width: 800px; text-align: center; /*background-color: #e6e6fa;*/} /*プロフィール画像の幅、高さ、中央よせ*/
+.profile-image{ 
+    width: 800px; text-align: center; /*プロフィール画像の幅、高さ、中央よせ*/
+    /*background-color: #e6e6fa;*/
+    
+} 
 .profile-image form{margin-bottom: 30px;}
-.profile-items{ width: 800px; /*プロフィール画像の幅と一緒にしないと横に並んじゃう*/
-font-size: 15px;
- /*プロフィール画像のアップロードボタンからの間隔を空けている*/
-}
+
 
 .profile-image tr {padding-right:30px;  /*右隣にあるlabelとの間隔を開けた*/
     letter-spacing: 0.3em; /*profile-image　thの文字間隔*/
@@ -201,13 +209,47 @@ font-size: 15px;
   background-color: #4169e1;
   border-radius: 1.5em;
 }
+
+.profile-items{ 
+    width: 1000px; /*プロフィール画像の幅と一緒にしないと横に並んじゃう*/
+    height: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 25px;
+    background-color: #e6e6fa;
+    padding: 10px 0px;
+}
+
+.profile{
+    background-color: white;/* 背景色指定 */
+    width: 40%;
+    border-radius:  30%;
+    padding: 10px; /* 図形に対する文字(タイトルのみ。あとはpのクラスで調整)の余白 */
+    margin: 10px;
+    text-align: center;
+}
+.profile:nth-child(1) {
+    
+}
+
+
+.profile-content{ font-size: 20px; 
+    color: black; 
+    padding: 10px; /*profileの中の<p>で囲んだ部分の文字と図形との間隔。*/
+    text-align: center;
+    
+}
+
 .profile-btn-wrapper{width: 800px;}/*プロフィール画像の幅と一緒にしないと横に並んじゃう*/
 .profile-btn-wrapper a {color: black; /*リンクの文字色を黒にしている。*/
-float:right; /*文字を右並びにしている。*/
-padding-left: 15px; padding-right: 15px;
-} 
+    float:right; /*文字を右並びにしている。*/
+    padding:15px 30px;
+    font-size: 20px;
+    } 
 
-/*ここからは、目標作成ページ（goal.add.blade.php）について。*/
+/*-------------ここからは目標作成ページ（goal.add.blade.php）について--------------------------------------------------------------------------*/
 
 .goal-add-wrapper  {text-align: center;
     display: flex;/* フレックスボックスにする。親要素のみにかく。 */
@@ -316,8 +358,8 @@ padding-left: 15px; padding-right: 15px;
 }
 .add-bottom a {padding-left: 280px; padding-right: 280px; font-size:20px; color: black;}
 
-/*ここからはgoal/list.blade.phpについて*/
-.list-main{ height: 700px;}
+/*-------------ここからはgoal/list.blade.phpについて--------------------------------------------------------------------------*/
+
 .list-title{text-align: center; padding-top: 40px;}
 .list {
     margin:50px 130px;/* bodyにあたる画面全体から見て中央になるよう調整 */
@@ -375,19 +417,24 @@ padding-left: 200px; padding-right: 200px;
     
 }
 
+
 .list2-item {
-	position: relative;
-	margin: 10px; /* inputタグ同士の間隔指定 */
-	font-size: 25px; /* inputタグの前の見出しの文字サイズ指定 */
-	/*border-radius: 10px;*//* inputタグのボックスの角の丸み。背景色つけるとボックスの大きさわかりやすい */
-	color: black;  /* inputタグの前の見出しの文字色指定 */
+    padding: 0.2em 0.5em;
+    margin: 2em 0;
+    color: #565656;
+    background: #ffeaea;
+    box-shadow: 0px 0px 0px 10px #ffeaea;
+    border: dashed 2px #ffc3c3;
+    border-radius: 8px;
+    width: 80%;
 }
 
-.list2-item:nth-child(1) {
-    background-color: #add8e6;/* 背景色指定 */
-    width:80%;/* inputタグのボックスの横の大きさ。*/
-    height: 80px;/* inputタグのボックスの縦の大きさ。背景色つけるとボックスの大きさわかりやすい */
-}
+
+/*.list2-item:nth-child(1) { フレックスボックスの子ボックスで特別やりたいことなければこれはいらない。*/
+   /* background-color: #add8e6;/* 背景色指定 */
+   /* width:80%;/* inputタグのボックスの横の大きさ。*/
+   /* height: 80px;/* inputタグのボックスの縦の大きさ。背景色つけるとボックスの大きさわかりやすい */
+/*}*/
 
 .list2-item label {
 	padding: 10px 10px 0px 0px;	/* ラベルの位置 */
@@ -403,7 +450,7 @@ padding-left: 200px; padding-right: 200px;
     margin-right: 10px; /*右（目標テーマ）からの位置調整 */
 }
 
-.list2-item a{font-size: 20px; color:white; padding-left: 10px; padding-right: 10px;} /* 編集ボタンや削除ボタンの大きさの調整 */
+.list2-item a{font-size: 20px; color: #b22222; padding-left: 10px; padding-right: 10px;} /* 編集ボタンや削除ボタンの大きさの調整 */
 
 .list2-bottom a {padding-left: 280px; padding-right: 280px; font-size:20px; color: black;}
 
@@ -443,6 +490,8 @@ padding-left: 200px; padding-right: 200px;
 
 
 /*-------------ここからはgoal/index.blade.phpについて--------------------------------------------------------------------------*/
+.goal-main{}
+
 .goal-wrapper  {
     text-align: center;
     display: flex;/* フレックスボックスにする。親要素のみにかく。 */
@@ -454,23 +503,290 @@ padding-left: 200px; padding-right: 200px;
     
 }
 
-.goal-item {
-	position: relative;
-	margin: 10px; /* 目標テーマ同士の間隔指定 */
-	font-size: 45px; /* 目標テーマの文字サイズを決めてるのは.goal-item aだけど、ここで45pxにすることでボックスの中央にテーマの文字がいく。理由はわからん。 */
-	/*border-radius: 10px;*//* inputタグのボックスの角の丸み。背景色つけるとボックスの大きさわかりやすい */
+.goal-item{
+    position: relative;
+    background: #d2b48c;
+    /*background: #fff0cd;元はこっちのバックカラーだった。*/
+    box-shadow: 0px 0px 0px 5px #d2b48c;
+    border: dashed 2px white;
+    padding: 0.2em 0.5em;
+    margin: 0.8em 0; /*目標テーマの同士の間隔。*/
+    color: #454545;
+    width:80%;/* 目標テーマの横の大きさ。*/
+    /*height: 60px;*//* 目標テーマの縦の大きさ。背景色つけるとボックスの大きさわかりやすい でも来れない方が自動的にちょうどいいサイズ*/
 }
 
-.goal-item:nth-child(1) {
-    background-color: #add8e6;/* 背景色指定 */
-    width:80%;/* 目標テーマの横の大きさ。*/
-    height: 80px;/* i目標テーマの縦の大きさ。背景色つけるとボックスの大きさわかりやすい */
-    
+.goal-item:after{
+    position: absolute;
+    content: '';
+    right: -7px;
+    top: -7px;
+    border-width: 0 15px 15px 0;
+    border-style: solid;
+    /*border-color: #ffdb88 #fff #ffdb88;元はこっちのカラーだった。*/
+    border-color: #ffdb88 #f5f5f5 #ffdb88;
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
 }
+.goal-item a {padding: 10px;}
+.goal-item input  {
+    margin: 0; 
+    padding: 0;
+}
+
+
+
+/*.goal-item:nth-child(1) {}ここでは必要ない。*/
 
 .goal-item a {font-size: 25px; color:black;}  /* 目標テーマの色や大きさの調整 */
 
 .goal-bottom a {padding-left: 190px; padding-right: 164px; font-size:18px; color: black;}
 
 /*-------------ここからはgoal/today_goal.blade.phpについて--------------------------------------------------------------------------*/
-.week-theme{text-align: center;}
+.week-theme{text-align: center;font-size: 30px; padding-bottom: 10px;}
+
+.week-goal-wrapper  {
+    text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    flex-wrap: wrap;            /* 折り返し指定 */
+    margin:50px; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    padding: 10px;             /* 余白指定 */
+    justify-content: center;/* menuは親要素。子要素であるmenu-itemの円を中央寄せにしている。 */
+    /*background-color:  black;*/
+    
+}
+
+.week-goal {
+	padding: 150px 200px;
+	margin: 25px;
+    /*margin: 2em 0;*/
+    background: #d6ebff;
+    box-shadow: 0px 0px 0px 10px #d6ebff;
+    border: dashed 2px white;
+    font-size: 20px;
+    text-align: center;
+    width: 40%;
+}
+
+.week-goal a {
+    margin: 0; 
+    padding: 0;
+}
+
+.week-goal:nth-child(1) { /* 子ボックスを個別で調整するならこの:nth-childってのがいる。だから一つだけデザイン変えることもできる！ */
+    padding:10px;
+    text-align: left;
+}
+.week-goal:nth-child(2) {
+    padding:10px;
+    text-align: left;
+}
+.week-goal:nth-child(3) {
+    padding:10px;
+    text-align: left;
+}
+.week-goal:nth-child(4) {
+    padding:10px;
+    text-align: left;
+}
+.week-goal:nth-child(5) {
+    padding:10px;
+    text-align: left;
+}
+.week-goal:nth-child(6) {
+    padding:10px;
+    text-align: left;
+}
+.week-goal:nth-child(7) {
+    padding:10px;
+    text-align: left;
+}
+.week-goal a {color:black;}
+
+.week-bottom{padding-bottom: 30px;}
+.week-bottom a {float:right; padding-right: 50px; font-size:20px; color: black;}
+
+/*-------------ここからはgoal/first_day.blade.phpについて--------------------------------------------------------------------------*/
+.today-title {text-align: center; color:#db7093;font-size: 30px; letter-spacing: 3px;}
+.today-todo {text-align: center; padding-top: 20px;color:#db7093;font-size: 25px; 
+letter-spacing: 20px; font-weight: bold ;
+}
+.theme-wrapper{
+    text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    /*flex-wrap: wrap; 今回は必要なし。*/           /* 折り返し指定 */
+    margin:0px; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    padding: 0px;             /* 余白指定 */
+    justify-content: center;/* これは親要素。子要素であるtoday-themeの中央寄せ。 */
+    /*background-color:  black;*/
+}
+
+
+.today-theme{
+    margin:2em 0;
+    position: relative;
+    padding: 0.5em 1.5em;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+    width: 80%;
+    text-align: center
+    
+}
+.today-theme:before, .today-theme:after{
+    content: '';
+    position: absolute;
+    top: -10px; /* 枠線の位置 */
+    width: 2px; /* 枠線の太さ？ */
+    height: -webkit-calc(100% + 20px);
+    height: calc(100% + 20px);
+    background-color: black;
+    
+    
+}
+.today-theme:before {left: 20px;} /* 枠の端の線のはみ出し度合い */
+.today-theme:after {right: 20px;} /* 枠の端の線のはみ出し度合い */
+.today-theme p {
+    margin: 20px; 
+    padding-roght: 0;
+    text-align: center；
+}
+
+.todo-wrapper{
+    text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    margin:0px; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    padding: 0px;             /* 余白指定 */
+    justify-content: center;/* 。子要素であるtodoを中央寄せにしている。 */
+    /*background-color:  black;*/
+}
+.todo{
+    padding: 150px 200px;
+    margin: 2em 0;
+    background: #d6ebff;
+    box-shadow: 0px 0px 0px 10px #d6ebff;
+    border: dashed 2px white;
+    font-size: 30px;
+    text-align: center；
+}
+.todo input {
+    margin: 0; 
+    padding: 0;
+}
+.today-main input[type="submit"]{  /*submitボタンのCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.today-main input[type="submit"]{   /*submitボタンのCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 1150px;
+  margin-bottom: 20px;  /*submitボタンとフッターとの間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 150px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}
+
+.today-bottom{padding-bottom: 10px;}
+.today-bottom a {padding-left: 400px; font-size:20px; color: black;}
+
+/*-------------ここからはgoal/achievement.blade.phpについて--------------------------------------------------------------------------*/
+.achievement-wrapper{
+    text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    flex-wrap: wrap;            /* 折り返し指定 */
+    margin:auto; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    justify-content: center;/* これは親要素。子要素であるlist2-itemを中央寄せにしている。 */
+    width: 80%;
+    /*background-color: black;*/   
+}
+
+.achievement-goal{
+    position: relative;
+    background: #8fbc8f;
+    /*background: #fff0cd;元はこっちのバックカラーだった。*/
+    box-shadow: 0px 0px 0px 5px #8fbc8f;
+    border: dashed 2px white;
+    padding: 0.2em 0.5em;
+    margin: 0.8em 0; /*目標テーマの同士の間隔。*/
+    color: white;
+    width:80%;/* 目標テーマの横の大きさ。*/
+    font-size: 25px;
+    /*height: 60px;*//* 目標テーマの縦の大きさ。背景色つけるとボックスの大きさわかりやすい でも来れない方が自動的にちょうどいいサイズ*/
+}
+
+.achievement-goal:after{
+    position: absolute;
+    content: '';
+    right: -7px;
+    top: -7px;
+    border-width: 0 15px 15px 0;
+    border-style: solid;
+    /*border-color: #ffdb88 #fff #ffdb88;元はこっちのカラーだった。*/
+    border-color: #8fbc8f #f5f5f5 #8fbc8f;
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.achievement-bottom{padding-top: 20px; } /*こっちでのpadding-bottomは聞かないので、下のaタグで調整。*/
+.achievement-bottom a {float: right; padding-right: 300px; padding-bottom: 20px;font-size:20px; color: black;}
+
+/*-------------ここからはgoal/edit.blade.phpについて--------------------------------------------------------------------------*/
+.edit-error{ text-align: center; color:red; font-size: 25px;}
+
+/*-------------ここからはgoal_list/delete.blade.phpについて--------------------------------------------------------------------------*/
+.goal-list-delete-wrapper  {
+    text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    flex-wrap: wrap;            /* 折り返し指定 */
+    margin:auto; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    justify-content: center;/* これは親要素。子要素であるlist2-itemを中央寄せにしている。 */
+    width: 80%;
+    /*background-color: black;*/
+    
+}
+.goal-list-delete-item {
+    padding: 0.2em 0.5em;
+    margin: 2em 0;
+    color: #565656;
+    background: #ffeaea;
+    box-shadow: 0px 0px 0px 10px #ffeaea;
+    border: dashed 2px #ffc3c3;
+    border-radius: 8px;
+    width: 80%;
+    font-size:30px;
+}
+
+.goal-list-delete-main input[type="submit"]{  /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.goal-list-delete-main input[type="submit"]{   /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 1100px; /*submitボタン元はめっちゃ左端。それをずらした。*/
+  margin-top: 20px; /*submitボタンとフレックスボックス（親）との間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 180px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}   
+
+.goal-list-delete-bottom{padding-bottom: 30px;}
+.goal-list-delete-bottom a { padding-left: 430px; font-size:20px; color: black;}

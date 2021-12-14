@@ -1,54 +1,38 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>Goal creation</title>
-    <style>
-    body { font-family: "Avenir Next"; }
-    header { background-color: #ffc0cb; height: 170px; }
-    .main { background-color: #deb887; height: 1000px; }
-    footer { background-color: #ffc0cb; height: 90px; }
-    h1 { font-size: 50pt; text-align: left; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    h2 { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
-    p { font-size: 20pt; text-align: leftt; color: white;
-        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}  
-    ul { font-size: 12pt;}
-    li { list-style: none; }
-    .header-list li { float: right; padding: 30px 20px; }
-    .header-right {float: right; background-color: rgba(255, 255, 255, 0.3); transition: all 0.5s; }
-    .header-right:hover {background-color: rgba(255, 255, 255, 0.5);}
-    .header-right a {line-height: 50px; padding-right: 25px; padding-left: 25px; color: white; display: block; }
-    .report li { float: left; padding: 30px 20px; }
-    </style>
-    {{--<link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
-    <link rel="stylesheet" href="css/styles.css"> {{--ここはオリジナルのCSS読み込んでいる。でもあんま効力なさない？--}}
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> {{--ここはbootstrap読み込んでいる--}}
-</head>
-<body>
-    <header>
-        <div class="header-logo">
-            <h1>誰か目標作ってくれないかな</h1>
-            <h2>〜暇を持て余したあなたへ〜</h2>
-        </div>
-        <div class="header-right">
-          <a class="btn" href=" ">ログイン</a>
-        </div>
-        <div class="header-list">
-            <ul>
-                <li>facebook</li>
-                <li>twitter</li>
-                <li>企業の方</li>
-                <li>マイページ</li>
-            </ul>
-        </div>
+ @extends('layouts.goalapp')
+
+@section('title', 'Achievement')
+
+@section('stylesheet')
+  
+@endsection
+
+@include('layouts.header') 
+
+@section('content')    
+    <div class=achievement-main>
+        <h1 class="list-title">達成した目標テーマ</h1> 
         
-    </header>
+        <table>
+            <div class="achievement-wrapper">{{--フレックスボックスの親タグ--}}
+                @foreach($items as $item)
+                
+                <div class="achievement-goal">{{optional($item)->theme}}</div>
+                
+                @endforeach
+            </div>{{--フレックスボックスの親の閉じタグ--}}         
+        </table>
         
-        
-    <div class=main>
+        {{ $items->links() }}
+        <div class="achievement-bottom">
+            <a href="/user">メニューページへ</a>
+        </div> 
+    </div>
+@endsection
+@include('layouts.footer') 
+
+
+
+{{--<div class=achievement-main>
         <h1>達成した目標テーマ</h1> 
         <table>
         @foreach($items as $item)
@@ -58,16 +42,7 @@
         @endforeach 
         </table>
         {{ $items->links() }}
-        {{--{{ $items->links('pagination::bootstrap-4') }}ちゃんとAppServiceProviderにbootstrap読み込んでれば上記のコーーどでOK--}}
         <div class="btn-wrapper">
             <a href="/user" class="btn">インデックスへ</a>
         </div>     
-    </div>
-        
-        
-    
-    <footer>
-       
-    </footer>
-</body>
-</html>
+    </div>--}}

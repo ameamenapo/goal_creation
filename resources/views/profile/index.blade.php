@@ -11,10 +11,8 @@
 @section('content')
 <div class="main">
     <h1 class="profile-title">My page</h1>
-    <div class="profile-wrapper">
-        {{--<div class="profile-title">My page</div>--}}
-    {{--<h1 class="profile-title">My page</h1>--}}    
-            <div class="profile-image">
+        <div class="profile-wrapper">{{--フレックスボックス親--}}
+            <div class="profile-image">{{--フレックスボックス子--}}
                 <form action="/profile" method="post" enctype="multipart/form-data">
                 <table>
                     {{ csrf_field() }}{{--以下のtype="hidden"〜がないと、画像を更新したときに他のプロフィール情報が消えちゃう--}}
@@ -34,22 +32,22 @@
                 <tr><th><td></th><input type="submit" value="アップロードする"></td></tr>--}}
                 </table>
                 </form> 
-            {{--<復活させるならここ/div>
-            <div class="profile-items">--}}
-                
+            </div>{{--フレックスボックス子閉じタグ--}}  
+        </div>{{--フレックスボックス親閉じタグ--}}    
+            
+        <div class="profile-items">{{--フレックスボックス親--}}        
                 <input type="hidden" name="id" value="{{$profile->id}}">
                 <input type="hidden" name="user_id" value="{{$profile->user_id}}">
-                <tr><div class="profile-items"><th>ニックネーム</th><br><td>{{optional($profile)->nickname}}</td></div></tr><br>
-                <tr><div class="profile-items"><th>年齢</th><br><td>{{optional($profile)->age}}</td></div></tr><br>
-                <tr><div class="profile-items"><th>趣味</th><br><td>{{optional($profile)->hobby}}</td></div></tr><br>
-                <tr><div class="profile-items"><th>ひとこと</th><br><td>{{optional($profile)->a_word}}</td></div></tr>
-               
-            </div>
+                <div class="profile">ニックネーム<br><p class="profile-content">{{optional($profile)->nickname}}</p></div>
+                <div class="profile">年齢<br><p class="profile-content">{{optional($profile)->age}}</p></div>
+                <div class="profile">趣味<br><p class="profile-content">{{optional($profile)->hobby}}</p></div>
+                <div class="profile">ひとこと<br><p class="profile-content">{{optional($profile)->a_word}}</p></div>
+        </div>{{--フレックスボックス親閉じタグ--}} 
             <div class="profile-btn-wrapper">
                 <a href="{{route('profile.edit')}}?id={{ optional($profile)->id}}">編集</a>
                 <a href="/user">メニューへ</a>
             </div>  
-    </div>
+    
 </div>
         
         {{--<div class=main>

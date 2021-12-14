@@ -8,7 +8,7 @@
 
 @include('layouts.header')        
 @section('content')    
-    <div class=main>
+    <div class=menu-main>
         <h1 class="menu-title">Menu</h1>
         <div class="menu">
 {{--クリック範囲を広げるために、aタグの中にdivタグ入れてクラスめいつけてる。こうするとCSSで簡単にdisplay:block;でクリック範囲親要素にできる。--}}

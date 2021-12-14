@@ -3,14 +3,7 @@
 @section('title', 'Welcom')
 
 @section('stylesheet')
-    {{--<link rel="stylesheet" href="reset.css">　　このファイルはもしCSSをリセットしたいならたすもの--}}
-    {{--<link rel="stylesheet" href="css/styles.css">①--}}
-    {{--<link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
-    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">②--}}    
-     {{--以下はFont Awesome5を読み込んでいる。--}}
-    {{--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">③--}} 
-    {{--初めは①②③のコードを書いていた。それでも問題はなかったが、なくても大丈夫なことがわかった。--}}
+    
 @endsection
 
 @include('layouts.header') 

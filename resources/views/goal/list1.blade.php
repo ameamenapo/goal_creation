@@ -33,8 +33,6 @@
             {{--<label style="display:block;">--}}
                 <input type="radio"  name="theme" value="{{optional($item)->id}}" id="mine-goal" style="transform:scale(1.5);" required >
                     <label for="mine-goal">{{optional($item)->theme}}</label><br>
-                <a href="{{ route('goal.edit') }}?id={{ optional($item)->id }}">編集</a>
-                <a href="{{ route('goal_list.delete') }}?id={{ optional($item)->id }}">削除</a>
            {{--</label>--}}
             </div>{{--フレックスボックスの子の閉じタグ--}}
         </tr>

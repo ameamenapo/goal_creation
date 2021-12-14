@@ -27,7 +27,7 @@ class AchievementController extends Controller
     {
         $user_id = Auth::id();
         //$items = Achievement::where('user_id', $user_id)->where('progress', 7)->get(); ペジネーション機能なしのやつ。
-        $items = Achievement::where('user_id', $user_id)->where('progress', 7)->paginate(1);
+        $items = Achievement::where('user_id', $user_id)->where('progress', 7)->paginate(6);
         return view('goal.achievement', ['items'=> $items]);
     }
     

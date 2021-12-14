@@ -14,6 +14,7 @@
     {{--@yield('stylesheet')--}}
 </head>
 <body>
+    <div class="goalapp-container">
     {{-- <header></header> 直接書き込むか--}}
     {{-- @include('header')読み込むか --}}
 
@@ -23,7 +24,7 @@
 {{--@yield('content')    
 contentは各ページで違うから、こちらはyieldであってる。--}}
 {{--@yield('footer')--}}
-<header class="header">
+    <header class="header">
         <div class="header-logo">
             <a href="/"><img src="/storage/logo.png" width="100px" height="100px"></a>    
         </div>
@@ -40,18 +41,19 @@ contentは各ページで違うから、こちらはyieldであってる。--}}
                 @endif
             </ul>
         </div>
-</header>
+    </header>
 @yield('content') 
-<footer>
- <div class="footer-list">
-                <ul>
-                    <li><a href="#">よくある質問</a></li>
-                    <li><a href="#">お問い合わせ</a></li>
-                    <li><a href="#">ご利用規約</a></li>
-                    <li>プライバシーポリシー</li>
-                </ul>
-</div>
-</footer>
-<script src="{{ asset('js/app.js') }}"></script>
+    <footer>
+        <div class="footer-list">
+            <ul>
+                <li><a href="#">よくある質問</a></li>
+                <li><a href="#">お問い合わせ</a></li>
+                <li><a href="#">ご利用規約</a></li>
+                <li>プライバシーポリシー</li>
+            </ul>
+        </div>
+    </footer>
+    </div>{{--goalapp-containerの閉じタグ--}}
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
