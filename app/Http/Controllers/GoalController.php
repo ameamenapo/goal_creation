@@ -61,6 +61,7 @@ class GoalController extends Controller
     public function create(Request $request)
     {
         $goal_theme = $request->theme;
+    
         if( empty($goal_theme) )
         {
             $error = "ーー テーマを入力してください ーー";
@@ -146,6 +147,7 @@ class GoalController extends Controller
     {
         
         $goal_theme = $request->theme;
+        
         if( empty($goal_theme) )
         {
             $item = Goal_list::find($request->id);
@@ -254,7 +256,9 @@ class GoalController extends Controller
         $items = Goal_list::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         //return view('goal.index', compact('items'));
-        return view('goal.list1', compact('items'));
+        //return view('goal.list1', compact('items'));元のコード
+        $flash_message = "目標を登録しました。";
+        return redirect()->route('goal.list1')->with(compact('items','flash_message'));
         } else {
             $msg = "目標がありません";
             $items = Goal_list::where('id', $request->theme)->paginate(6);
@@ -320,7 +324,10 @@ class GoalController extends Controller
         $items = Goal_list::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         //return view('goal.index', compact('items'));
-        return view('goal.list2', compact('items'));
+        //return view('goal.list2', compact('items'));元のコード
+        $flash_message = "目標を登録しました。";
+        return redirect()->route('goal.list2')->with(compact('items','flash_message'));
+        
         } else{
             $msg = "目標がありません";
             $items = Goal_list::where('id', $request->theme)->paginate(6);
@@ -356,7 +363,10 @@ class GoalController extends Controller
         $items = Goal::where('user_id', $user_id)->paginate(6);
         //var_dump($items);
         //return view('goal.index', compact('items'));
-        return view('goal.list3', compact('items'));
+        //return view('goal.list3', compact('items'));元のコード
+        $flash_message = "目標を登録しました。";
+        return redirect()->route('goal.list3')->with(compact('items','flash_message'));
+        
         } else {
             $msg = "目標がありません";
             $items = Goal_list::where('id', $request->theme)->paginate(6);
@@ -379,7 +389,11 @@ class GoalController extends Controller
         // $request はユーザーが入力した、送っている情報
         //var_dump($request->all());
         Goal::destroy($request->theme);
-        return redirect('/goal');
+        $user_id = Auth::id();//ユーザーidを取得
+        $items = Goal::where('user_id', $user_id)->get();//del_listビューにredirectするにはitems定義しないと渡せない。
+        $flash_message = "目標を削除しました。";
+        return redirect()->route('goal.del_list')->with(compact('items','flash_message'));
+        //return redirect('/goal');
     }
     
     public function today_goal(Request $request)

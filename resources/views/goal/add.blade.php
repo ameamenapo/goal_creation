@@ -18,42 +18,42 @@
         <div class="goal-add-wrapper">
             <div class="goal-add"><p id="add-title">テーマ</p>
 	            <label class="add-item">
-	            <input type="text" name="theme" placeholder="入力欄">
+	            <input type="text" name="theme" placeholder="入力欄" required>
 	            </label>
             </div>
             <div class="goal-add"><p id="add-title">１日め</p>
 	            <label class="add-item">
-	            <input type="text" name="first_day" placeholder="入力欄">
+	            <input type="text" name="first_day" placeholder="入力欄" required>
 	            </label>
             </div>
             <div class="goal-add"><p id="add-title">２日め</p>
 	            <label class="add-item">
-	            <input type="text" name="second_day" placeholder="入力欄">
+	            <input type="text" name="second_day" placeholder="入力欄" required>
 	            </label>
             </div>
                 <div class="goal-add"><p id="add-title">３日め</p>
 	            <label class="add-item">
-	            <input type="text" name="third_day" placeholder="入力欄">
+	            <input type="text" name="third_day" placeholder="入力欄" required>
 	            </label>
             </div>
             <div class="goal-add"><p id="add-title">４日め</p>
 	            <label class="add-item">
-	            <input type="text" name="fourth_day" placeholder="入力欄">
+	            <input type="text" name="fourth_day" placeholder="入力欄" required>
 	            </label>
             </div>
             <div class="goal-add"><p id="add-title">５日め</p>
 	            <label class="add-item">
-	            <input type="text" name="fifth_day" placeholder="入力欄">
+	            <input type="text" name="fifth_day" placeholder="入力欄" required>
 	            </label>
             </div>
             <div class="goal-add"><p id="add-title">６日め</p>
 	            <label class="add-item">
-	            <input type="text" name="sixth_day" placeholder="入力欄">
+	            <input type="text" name="sixth_day" placeholder="入力欄" required>
 	            </label>
             </div>
             <div class="goal-add"><p id="add-title">７日め</p>
 	            <label class="add-item">
-	            <input type="text" name="seventh_day" placeholder="入力欄">
+	            <input type="text" name="seventh_day" placeholder="入力欄" required>
 	            </label>
             </div>
         

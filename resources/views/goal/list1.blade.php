@@ -10,6 +10,12 @@
 
 @section('content')
 <div class=list2-main>
+    @if (session('flash_message'))
+            <div class="alert alert-danger">
+                <p class=list-flash>{{ session('flash_message') }}</p>
+            </div>
+    @endif
+    
     <h1 class="list-title">アプリオリジナル目標</h1>
      
         <form action="/goal/list1" method="post"> 

@@ -36,8 +36,8 @@ class UserController extends Controller
     {
         $user = User::find($request->id);
         //var_dump($user);
-        $msg = '情報を編集してください。';
-        return view('user.edit', compact('user','msg'));
+        
+        return view('user.edit', compact('user'));
     }
     
      public function update(Request $request)
@@ -54,8 +54,12 @@ class UserController extends Controller
         $form = $request->all();
         unset($form['_token']);
         $user->fill($form)->save();
-        $msg = '情報を編集しました！';
-        return view('user.edit', compact('user','msg'));
+       
+        $user_id = Auth::id(); 
+        $user = User::where('id', $user_id)->first();//これでユーザー情報渡してるはずが渡せてない‥。
+        $flash_message = "会員情報を編集しました。";
+        return redirect()->route('user.edit')->with(compact('user','flash_message'));
+        //return view('user.edit', compact('user'));
     }
    
     //退会機能ためにwithdrawalアクションを作成
@@ -83,6 +87,22 @@ class UserController extends Controller
         }
         
     }
+    
+    public function term()
+    {
+        return view('user/term');
+    }
+    
+    public function question()
+    {
+        return view('user/question');
+    }
+    
+    public function policy()
+    {
+        return view('user/policy');
+    }
+
 
     
 }

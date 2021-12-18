@@ -11,6 +11,12 @@
 @section('content') 
 <div class="list2-main"> {{--list2-mainについては、CSSで何も設定してない。そしたらフッターの余白無くなった‥。--}}
         
+        @if (session('flash_message'))
+            <div class="alert alert-danger">
+                <p class=list-flash>{{ session('flash_message') }}</p>
+            </div>
+        @endif
+        
         <h1 class="list-title">自分で作成した目標</h1>
         
         <form action="/goal/list2" method="post">
@@ -25,7 +31,7 @@
         @else
             <p class="list-title-p">{{$msg}}</p>
         @endif
-
+        
         @foreach($items as $item)
         <tr>
             <div class="list2-wrapper">{{--フレックスボックスの親--}}
@@ -36,7 +42,6 @@
                 <a href="{{ route('goal.edit') }}?id={{ optional($item)->id }}">編集</a>
                 <a href="{{ route('goal_list.delete') }}?id={{ optional($item)->id }}">削除</a>
             </div>{{--フレックスボックスの子の閉じタグ--}}
-            
         </tr>
         @endforeach
         </div>{{--フレックスボックスの親の閉じタグ--}} 

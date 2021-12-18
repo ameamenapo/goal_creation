@@ -32,8 +32,8 @@
 @endsection
 @section('content') 
      
-    <div class=main>
-        <h1>退会画面</h1>
+    <div class=user-destroy-main>
+        <h1 class="list-title">退会画面</h1>
         <p>{{$msg}}</p>
         
         <script>{{--javascriptを使ってポップアップを出している。--}}
@@ -47,8 +47,7 @@
         <table>
          @csrf
         
-            <h1>退会しますか？</h1>
-            <p>退会すると、作成した目標は全て消えます。</p>
+            <p class= "user-destroy">退会すると、作成した目標は全て消えます。</p>
             <input type="hidden" name="id" value="{{$user->id}}">
             <tr><th></th><td><input type="submit" value="退会する"></td></tr>
             
@@ -56,8 +55,8 @@
         </table>
         </form>
 
-        <div class="btn-wrapper">
-            <a href="/user" class="btn">メニューページへ</a>
+        <div class="user-destroy-bottom">
+            <a href="/user">メニューページへ</a>
         </div>
     </div>
     @endsection

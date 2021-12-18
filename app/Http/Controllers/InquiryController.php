@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Validator;
 
 class InquiryController extends Controller
 {
@@ -14,7 +18,8 @@ class InquiryController extends Controller
      */
     public function form()
     {
-        return view('inquiry.form');
+        $errors = [];
+        return view('inquiry.form', compact('errors'));
     }
 
     /**
@@ -24,7 +29,8 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        //
+        
+        
     }
 
     /**
@@ -35,7 +41,39 @@ class InquiryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, Inquiry::$rules);//Inquiryモデルでもバリデーとルールつけてるからこれでもいいけど、メッセージが出ない。
+        //$rules = [
+        //'name' => 'required',
+        //'email' => 'required',
+        //'contents' => 'required',
+        //];
+        //$errors = [
+            //'name.required' =>'名前を入力してください。',
+            //'email.required' =>'メールアドレスを入力してください。',
+            //'contents.required' =>'お問い合わせ内容を入力してください。',
+            //];
+        //$validator = Validator::make($request->all(), $rules, $errors);
+        
+        //if ($validator->fails()) {
+                //return redirect('inquiry/form')
+                    //->withErrors($validator)
+                    //->withInput();
+        //}
+        
+        //$param = [
+            //'name' => $request->name,
+            //'email' => $request->email,
+            //'contents' => $request->contents,
+        //];
+        
+        $inquiry = new Inquiry(); 
+        
+        $form = $request->all();
+        unset($form['_token']);
+        $inquiry->fill($form)->save();
+        $flash_message = "お問い合わせを受け付けました。";
+        
+        return redirect()->route('inquiry.form')->with(compact('flash_message'));
     }
 
     /**

@@ -64,7 +64,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         //var_dump($request->all());
-        $this->validate($request, Profile::$rules);
+        $this->validate($request, Profile::$rules); //Profileモデルにあるバリデーションを使っている。
         //var_dump($request->all());
         $user_id = Auth::id();
         

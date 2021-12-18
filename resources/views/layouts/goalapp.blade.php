@@ -46,10 +46,10 @@ contentは各ページで違うから、こちらはyieldであってる。--}}
     <footer>
         <div class="footer-list">
             <ul>
-                <li><a href="#">よくある質問</a></li>
-                <li><a href="#">お問い合わせ</a></li>
-                <li><a href="#">ご利用規約</a></li>
-                <li>プライバシーポリシー</li>
+                <li><a href="/user/question">よくある質問</a></li>
+                <li><a href="/inquiry">お問い合わせ</a></li>
+                <li><a href="/user/term">ご利用規約</a></li>
+                <li><a href="/user/policy">プライバシーポリシー</a></li>
             </ul>
         </div>
     </footer>

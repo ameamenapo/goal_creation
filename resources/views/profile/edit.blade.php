@@ -7,9 +7,8 @@
 @include('layouts.header') 
 
 @section('content')
-    <div class=main>
-        <h1>マイページ編集画面</h1>
-        <p>プロフィールを編集してください。</p>
+    <div class=profile-main>
+        <h1 class="list-title">マイページ編集画面</h1>
         
     <form action="/profile/edit" method="post">
     <table>
@@ -36,7 +35,7 @@
             </div>      
             <div class="goal-add"><p id="add-title">ひとこと</p>
                 <label class="add-item">
-                    <textarea name="a_word" rows="6" cols="40">{{optional($profile)->a_word}}</textarea>
+                    <textarea name="a_word" rows="3" cols="40">{{optional($profile)->a_word}}</textarea>
                 </label>
             </div>     
         </div>{{--フレックスボックス親閉じタグ--}}

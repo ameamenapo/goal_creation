@@ -32,52 +32,6 @@ Route::post('user/logout', 'UserController@getLogout');
 
 
 
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-})->middleware('guest')->name('password.request');//パスワードリセット
-
-Route::post('/forgot-password', function (Request $request) {
-    $request->validate(['email' => 'required|email']);
-
-    $status = Password::sendResetLink(
-        $request->only('email')
-    );
-    
-    return $status === Password::RESET_LINK_SENT
-                ? back()->with(['status' => __($status)])
-                : back()->withErrors(['email' => __($status)]);
-})->middleware('guest')->name('password.email');//パスワードリセット
-
-Route::get('/reset-password/{token}', function ($token) {
-    return view('auth.reset-password', ['token' => $token]);
-})->middleware('guest')->name('password.reset');//パスワードリセット
-
-Route::post('/reset-password', function (Request $request) {
-    $request->validate([
-        'token' => 'required',
-        'email' => 'required|email',
-        'password' => 'required|min:8|confirmed',
-    ]);
-
-    $status = Password::reset(
-        $request->only('email', 'password', 'password_confirmation', 'token'),
-        function ($user, $password) {
-            $user->forceFill([
-                'password' => Hash::make($password)
-            ])->setRememberToken(Str::random(60));
-
-            $user->save();
-
-            event(new PasswordReset($user));
-        }
-    );
-
-    return $status === Password::PASSWORD_RESET
-                ? redirect()->route('login')->with('status', __($status))
-                : back()->withErrors(['email' => [__($status)]]);
-})->middleware('guest')->name('password.update');//パスワードリセット
-
-
 //以下は目標一覧や目標作成などに関するルーティング
 Route::get('goal', 'GoalController@index');
 Route::get('goal/add', 'GoalController@add');
@@ -85,13 +39,13 @@ Route::post('goal/add', 'GoalController@create');
 Route::get('goal/edit', 'GoalController@edit')->name('goal.edit');
 Route::post('goal/edit', 'GoalController@update');
 Route::get('goal/list', 'GoalController@choose');
-Route::get('goal/list1', 'GoalController@choose1');
-Route::get('goal/list2', 'GoalController@choose2');
-Route::get('goal/list3', 'GoalController@choose3');
+Route::get('goal/list1', 'GoalController@choose1')->name('goal.list1');
+Route::get('goal/list2', 'GoalController@choose2')->name('goal.list2');
+Route::get('goal/list3', 'GoalController@choose3')->name('goal.list3');
 Route::post('goal/list1', 'GoalController@register1');
 Route::post('goal/list2', 'GoalController@register2');
 Route::post('goal/list3', 'GoalController@register3');
-Route::get('goal/del_list', 'GoalController@delete');//目標一覧から目標を削除する
+Route::get('goal/del_list', 'GoalController@delete')->name('goal.del_list');//目標一覧から目標を削除する
 Route::post('goal/del_list', 'GoalController@remove');//目標一覧から目標を削除する
 Route::get('goal_list/delete', 'Goal_listController@delete')->name('goal_list.delete');//自分の作った目標を削除する。完全にその目標が消えるということ。
 Route::post('goal_list/delete', 'Goal_listController@remove');//自分の作った目標を削除する。完全にその目標が消えるということ。
@@ -126,7 +80,12 @@ Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
 Route::post('/profile/edit', 'ProfileController@update');
 
 //以下は問い合わせに関するルーティング
-Route::get('inquiry', 'InquiryController@form');
+Route::get('inquiry', 'InquiryController@form')->name('inquiry.form');
+Route::post('inquiry', 'InquiryController@store');
+
+Route::get('user/term', 'UserController@term');
+Route::get('user/question', 'UserController@question');
+Route::get('user/policy', 'UserController@policy');
 
 
 //以下の二行はphp artisan make:authしてauth機能を追加したら自動的に追加されたもの。

@@ -22,7 +22,11 @@
             </div>{{--フレックスボックスの親の閉じタグ--}}         
         </table>
         
-        {{ $items->links() }}
+        <div class="pagination-parent">
+            <div class="pagination-child">   
+            {{ $items->links() }}
+            </div>
+        </div>
         <div class="achievement-bottom">
             <a href="/user">メニューページへ</a>
         </div> 

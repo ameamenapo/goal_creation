@@ -15,7 +15,7 @@
     <table>
         @csrf
         <div class="goal-list-delete-wrapper">{{--フレックスボックスの親--}}
-            <input type="hidden" name="id" value="{{$item->id}}">
+            <input type="hidden" name="id" value="{{$item->id}}" required>
             <div class="goal-list-delete-item">{{--フレックスボックスの子--}}
                 {{optional($item)->theme}}
             </div>{{--フレックスボックスの子の閉じタグ--}}

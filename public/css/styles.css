@@ -7,25 +7,25 @@ body { font-family: "Avenir Next"; margin: 0; padding: 0px;}
 header { background-color: #ffc0cb; height: 120px; margin: 0; padding: 0px;}
 .goalapp-container{ /*フッターの位置を固定するために、フレックスボックスを用いた。*/
     display: flex; /*フレックスボックスにする。*/
-    flex-direction: column;　/*header〜footerを縦並びにする。*/
-    min-height: 100vh; /*ブラウザにより画面のサイズは違うが、100vhとするとどのブラウザでも対応するらしい。*/
+    flex-direction: column;/*header〜footerを縦並びにする。*/
+    min-height: 100vh;/*ブラウザにより画面のサイズは違うが、100vhとするとどのブラウザでも対応するらしい。*/
 }
- .main { background-color:#f5f5f5;}
+ .main { background-color:#f5f5f5;}/*下のフッターのとこ。なかなかフッター下に固定されないと思ったら、フッターの行付近に全角スペースがあったからで、それを消したら上手くいった*/
 footer { background-color: #ffc0cb; height: 90px;margin: 0; padding: 0px;
     margin-top: auto; /*footerの上にmarginをつけて一番下に表示するようにした*/
 }
 h1 { font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
-      font-size: 50pt; color:#db7093; text-align: left;
-      margin:0px; padding: 0px; letter-spacing: 0.1em;　}
+     font-size: 50pt; color:#db7093; text-align: left;
+     margin:0px; padding: 0px; letter-spacing: 0.1em;　}
       
       /* h1 { font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
       font-size: 50pt; text-align: left; color:#db7093;
       margin: -20px 0px -30px 0px; letter-spacing: 0.1em;　}*/
       
 h2 { font-size: 20pt; text-align: left; color: #db7093;
-      margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
+        margin: -20px 0px -30px 0px; letter-spacing: -4pt;　}
 p { font-size: 20pt; text-align: left; color: #db7093;
-     margin: -20px 0px -30px 0px; letter-spacing: 0.1em;　}  
+    margin: -20px 0px -30px 0px; letter-spacing: 0.1em;　}
 ul { font-size: 12pt;}
 li { list-style: none; float:left;  padding: 33px 20px;}
 
@@ -103,7 +103,7 @@ li { list-style: none; float:left;  padding: 33px 20px;}
   text-decoration: none;
   color: white;}
   
-  /*ここからは、もくじページ（user.index.blade.php）について。*/
+ /*-------------ここからはもくじページ（user.index.blade.php）について---------------------------------------------------------*/ 
   .menu-title{text-align: center; padding-top: 40px;}
   .menu {
     margin:50px 130px;/* bodyにあたる画面全体から見て中央になるよう調整 */
@@ -154,7 +154,7 @@ li { list-style: none; float:left;  padding: 33px 20px;}
 .menu-header{padding: 30px 100px; text-align: center;}
 .menu-header a {padding-right: 100px; color: black;}
 
-/*ここからは、マイページ（profile.index.blade.php）について。*/
+/*-------------ここからはマイページ（profile.index.blade.php）について--------------------------------------------------------------------------*/
 .profile-title {text-align: center; padding-top: 20px; padding-bottom: 20px;}
 .profile-wrapper {
   width: 1000px;
@@ -219,18 +219,35 @@ li { list-style: none; float:left;  padding: 33px 20px;}
     justify-content: center;
     font-size: 25px;
     background-color: #e6e6fa;
-    padding: 10px 0px;
+    padding: 40px 0px;
 }
 
 .profile{
     background-color: white;/* 背景色指定 */
     width: 40%;
-    border-radius:  30%;
+    border-radius:  2%;
     padding: 10px; /* 図形に対する文字(タイトルのみ。あとはpのクラスで調整)の余白 */
-    margin: 10px;
+    margin-left: 10px; margin-right: 10px;margin-bottom: 20px;
     text-align: center;
+    
 }
 .profile:nth-child(1) {
+     min-height: 10px;/*min-heightをつけると、デフォルトの高さがこれ以上は小さくなれないよ的な感じ。高さの最小値。
+     だから、例えば「ひとこと」が長くなったら、「ひとこと」と「趣味」のボックスはどんどん大きくなるけど、ニックネームと年齢は
+     これ以上の高さより低くならない、小さくならない。
+     ただ、今は「ひとこと」を長くしすぎると親ボックスまで突き破っちゃうから、どうにかしてこレニも制限かけないとならない。*/
+    
+}
+.profile:nth-child(2) {
+    min-height: 10px;
+    
+}
+.profile:nth-child(3) {
+    min-height: 10px;
+    
+}
+.profile:nth-child(4) {
+    min-height: 10px;
     
 }
 
@@ -248,8 +265,48 @@ li { list-style: none; float:left;  padding: 33px 20px;}
     padding:15px 30px;
     font-size: 20px;
     } 
-
-/*-------------ここからは目標作成ページ（goal.add.blade.php）について--------------------------------------------------------------------------*/
+    
+.profile-main input[type="submit"]{  /*submitボタンのCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.profile-main input[type="submit"]{   /*submitボタンのCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 220px;  /*submitボタンと画面端っことの間隔の変更。*/
+  margin-bottom: 20px;  /*submitボタンとフッターとの間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 300px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}
+/*-------------ここからはマイページ（profile.edit.blade.php）について---------------------------------------------------------*/
+.goal-add textarea {
+	font-size:20px;
+	box-sizing: border-box;
+	width: 544px;　/*上にある#add-titleと幅が同じなるようにして、色がつながっているように見せている。*/
+	padding:10px 50px;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: black; /*inputタグ内の文字の色*/
+	border: none;
+	border-bottom: 2px solid #1b2538;
+	/*background-color:  #b0c4de;*//*inputタグ内のカラー*/
+}
+.add-item textarea:focus {
+	border-bottom: 2px solid #da3c41;
+	outline: none;
+}
+/*-------------ここからは目標作成ページ（goal.add.blade.php）について---------------------------------------------------------*/
 
 .goal-add-wrapper  {text-align: center;
     display: flex;/* フレックスボックスにする。親要素のみにかく。 */
@@ -357,6 +414,30 @@ li { list-style: none; float:left;  padding: 33px 20px;}
   font-size:20px;
 }
 .add-bottom a {padding-left: 280px; padding-right: 280px; font-size:20px; color: black;}
+/*-------------ここからはgoal/edit.blade.phpについて--------------------------------------------------------------------------*/
+.edit-main input[type="submit"]{  /*submitボタンのCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.edit-main input[type="submit"]{   /*submitボタンのCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 1150px;
+  margin-bottom: 20px;  /*submitボタンとフッターとの間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 150px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}
 
 /*-------------ここからはgoal/list.blade.phpについて--------------------------------------------------------------------------*/
 
@@ -399,13 +480,18 @@ li { list-style: none; float:left;  padding: 33px 20px;}
     background-color:  #b0c4de; /* 背景色指定 */
     padding: 120px 10px;/* 図形に対する文字の余白 */
 }
+.list-btn-wrapper{font-size:20px; }
 .list-btn-wrapper a {color: black; /*リンクの文字色を黒にしている。*/
 float:right; /*文字を右並びにしている。*/
-padding-left: 200px; padding-right: 200px;
+padding-left: 200px; padding-right: 200px; padding-bottom: 10px;
 } 
 
 /*-------------ここからはgoal/list2.blade.phpについて--------------------------------------------------------------------------*/
 .list-title-p{font-size:25px; text-align: center;}
+.list-flash {font-size:25px;  /* フラッシュメッセージのCSS */
+color:black; 
+margin:auto; /* これ書くと、メッセージお幅がちょうど良くなる*/
+}
 
 .list2-wrapper  {text-align: center;
     display: flex;/* フレックスボックスにする。親要素のみにかく。 */
@@ -418,7 +504,7 @@ padding-left: 200px; padding-right: 200px;
 }
 
 
-.list2-item {
+.list2-item { /* フレックスボックス子要素。 */
     padding: 0.2em 0.5em;
     margin: 2em 0;
     color: #565656;
@@ -786,7 +872,303 @@ letter-spacing: 20px; font-weight: bold ;
   background-color: #4169e1;
   border-radius: 1.5em;
   font-size:20px;
-}   
+}
+
 
 .goal-list-delete-bottom{padding-bottom: 30px;}
 .goal-list-delete-bottom a { padding-left: 430px; font-size:20px; color: black;}
+
+/*-------------ここからはuser/edit.blade.phpについて--------------------------------------------------------------------------*/
+.user-wrapper  {
+    text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    flex-wrap: wrap;           /* 折り返し指定 */
+    margin:50px; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    padding:  10px;             /* 余白指定 */
+    justify-content: center;/* menuは親要素。子要素であるmenu-itemの円を中央寄せにしている。 */
+    /*background-color:  pink;*/
+    
+}
+
+.user-edit {
+	position: relative;
+	width: 80%;
+	margin: 40px 3%;
+	font-size: 25px; /* inputタグの前の見出しの文字サイズ指定 */
+	color: black;  /* inputタグの前の見出しの文字色指定 */
+}
+.user-edit input[type='text'] {
+	font-size:20px;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.3em;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: #aaaaaa;
+	border: 1px solid #1b2538;
+	border-radius: 4px;
+}
+.user-item input[type='text']:focus {
+	border: 1px solid #da3c41;
+	outline: none;
+	box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+}
+.user-edit input[type='email'] {
+	font-size:20px;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.3em;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: #aaaaaa;
+	border: 1px solid #1b2538;
+	border-radius: 4px;
+}
+.user-item input[type='email']:focus {
+	border: 1px solid #da3c41;
+	outline: none;
+	box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+}
+
+.user-edit input[type='date'] {
+	font-size:20px;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.3em;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: #aaaaaa;
+	border: 1px solid #1b2538;
+	border-radius: 4px;
+}
+.user-item input[type='date']:focus {
+	border: 1px solid #da3c41;
+	outline: none;
+	box-shadow: 0 0 5px 1px rgba(218,60,65, .5);
+}
+
+.main-user-edit input[type="submit"]{  /*submitボタンのCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.main-user-edit input[type="submit"]{   /*submitボタンのCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 1150px;
+  margin-bottom: 20px;  /*submitボタンとフッターとの間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 150px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}
+.user-edit-bottom{padding-bottom: 10px;}
+.user-edit-bottom a {padding-left: 280px; padding-right: 280px; font-size:20px; color: black;}
+
+/*-------------ここからはgoal/del_list.blade.phpについて--------------------------------------------------------------------------*/
+.del_list-wrapper  {
+    /*text-align: center;*/
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    flex-wrap: wrap;           /* 折り返し指定 */
+    margin:10px; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    padding: 0;             /* 余白指定 */
+    justify-content: center;/* 子要素であるdel_list-item を中央寄せにしている。あくまでボックスだけ中央寄せ。
+    ボックスの中の文字は子要素で調整する必要ある。background-colorに色つけてみるとわかりやすい。*/
+    /*background-color:  pink;*/
+    
+}
+
+.del_list-item {
+	position: relative;
+	width: 80%;
+    margin: 1px; /* これで子要素である目標テーマ同士の間隔調整 */
+	font-size: 25px; /* inputタグの前の見出しの文字サイズ指定 */
+	color: black;  /* inputタグの前の見出しの文字色指定 */
+	/*background-color: white;*/
+}
+
+.del_list-item label {
+	padding: 0px 0px 0px 20px;	/* ラベルの位置 */
+	font-size: 23px; /* テーマの文字の大きさ */
+	/*line-height: 28px;*/		/* ボタンのサイズに合わせる */
+	display: inline-block;
+	cursor:	pointer;
+	position: relative;
+}
+.del_list-main input[type="radio"]{ /* ラジオボタンの位置調整 */
+    position: relative; /* ラジオボタンの位置調整にはこれがあることが大切 */
+    top: -4px;  /*上からの位置調整 */
+    margin-right: 10px; /*右（目標テーマ）からの位置調整 */
+}
+
+.del_list-submit input[type="submit"]{  /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.del_list-submit input[type="submit"]{   /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 1100px; /*submitボタン元はめっちゃ左端。それをずらした。*/
+  margin-top: 20px; /*submitボタンとフレックスボックス（親）との間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 180px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}
+
+.del-list-bottom{padding-bottom: 10px; text-align: center;}
+.del-list-bottom a { font-size:20px; color: black;}
+
+/*-------------ここからはuser/destroy.blade.phpについて-----------------------------------------------------------------*/
+.user-destroy{color:black; font-size:25px; text-align: center;}
+
+.user-destroy-main input[type="submit"]{  /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.user-destroy-main input[type="submit"]{   /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 620px; /*submitボタン元はめっちゃ左端。それをずらした。*/
+  margin-top: 20px; /*submitボタンとフレックスボックス（親）との間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 180px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}
+.user-destroy-bottom {padding-bottom: 10px; padding-left: 100px;}
+.user-destroy-bottom a { font-size:20px; color: black;}
+
+/*-------------ここからはinquiry/form.blade.phpについて-----------------------------------------------------------------*/
+.inquiry-wrapper  {text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    flex-wrap: wrap;            /* 折り返し指定 */
+    margin:50px; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    padding:  10px;             /* 余白指定 */
+    justify-content: center;/* menuは親要素。子要素であるinqquiryを中央寄せにしている。 */
+    /*background-color:  pink;*/
+    
+}
+
+.inquiry {
+	position: relative;
+	margin: 30px; /* inputタグ同士の間隔指定 */
+	font-size: 30px; /* inputタグの前の見出しの文字サイズ指定 */
+	/*border-radius: 10px;*//* inputタグのボックスの角の丸み。背景色つけるとボックスの大きさわかりやすい */
+	width:40%;
+	height:70px; /* inputタグのボックスの大きさ。背景色つけるとボックスの大きさわかりやすい */
+	color: black;  /* inputタグの前の見出しの文字色指定 */
+	
+}
+.inquiry input {
+	font-size:20px;
+	box-sizing: border-box;
+	width: 544px;　
+	padding:10px 50px;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: black; /*inputタグ内の文字の色*/
+	border: none;
+	border-bottom: 2px solid #1b2538;
+	/*background-color:  #b0c4de;*//*inputタグ内のカラー*/
+}
+.inquiry input:focus {
+	border-bottom: 2px solid #da3c41;
+	outline: none;
+}
+
+.inquiry textarea {
+	font-size:20px;
+	box-sizing: border-box;
+	width: 544px;
+	padding:10px 50px;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: black; /*inputタグ内の文字の色*/
+	border: none;
+	border-bottom: 2px solid #1b2538;
+	/*background-color:  #b0c4de;*//*inputタグ内のカラー*/
+}
+.inquiry textarea:focus {
+	border-bottom: 2px solid #da3c41;
+	outline: none;
+}
+
+.main-inquiry input[type="submit"]{  /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+}
+.main-inquiry input[type="submit"]{   /*submitボタン（目標一覧へ追加）のCSSの変更。*/
+  position: relative;
+  display: block;
+  margin-left: 620px; /*submitボタン元はめっちゃ左端。それをずらした。*/
+  margin-top: 200px; /*submitボタンとフレックスボックス（親）との間隔の変更。*/
+  margin-bottom:30px; /*submitボタンとフッターとの間隔の変更。*/
+  padding: 1em;      /*submitボタンの中の文字の間隔を変更しボタンの大きさを調整。*/
+  width: 180px;
+  color: white;
+  line-height: 1;
+  text-align: center;
+  background-color: #4169e1;
+  border-radius: 1.5em;
+  font-size:20px;
+}
+
+/*-------------ここからはuser/term.blade.phpについて-----------------------------------------------------------------*/
+.term-wrapper  {
+    text-align: center;
+    display: flex;/* フレックスボックスにする。親要素のみにかく。 */
+    flex-wrap: wrap;            /* 折り返し指定 */
+    margin:auto; /*画面全体に対する親フレックスボックスのマージン。余白。 */
+    justify-content: center;/* これは親要素。子要素であるlist2-itemを中央寄せにしている。 */
+    width: 80%;
+    background-color: white;
+    
+}
+
+.term{
+    position: relative;
+    background: white;
+    /*background: #fff0cd;元はこっちのバックカラーだった。*/
+    /*box-shadow: 0px 0px 0px 5px #d2b48c;*/
+    /*border: dashed 2px white;*/
+    padding: 0.2em 0.5em;
+    margin: 0.8em 0; /*目標テーマの同士の間隔。*/
+    
+    width:80%;/* 目標テーマの横の大きさ。*/
+    /*height: 60px;*//* 目標テーマの縦の大きさ。背景色つけるとボックスの大きさわかりやすい でも来れない方が自動的にちょうどいいサイズ*/
+}
+.term-start{margin:20px 100px;font-size:20px; color:black; text-align: left;}
+.term-title{font-size:25px; color:black; text-align: center;}
+.term-end{ont-size:25px; color:black; text-align:right;}

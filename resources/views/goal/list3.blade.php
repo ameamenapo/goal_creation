@@ -10,6 +10,13 @@
 
 @section('content') 
 <div class="list2-main"> {{--list2-mainについては、CSSで何も設定してない。そしたらフッターの余白無くなった‥。--}}
+    
+    @if (session('flash_message'))
+            <div class="alert alert-danger">
+                <p class=list-flash>{{ session('flash_message') }}</p>
+            </div>
+    @endif
+    
     <h1 class="list-title">他のユーザーが作成した目標</h1>
     
         <form action="/goal/list3" method="post"> 
