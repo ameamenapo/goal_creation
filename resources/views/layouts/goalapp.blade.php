@@ -14,7 +14,7 @@
     {{--@yield('stylesheet')--}}
 </head>
 <body>
-    <div class="goalapp-container">
+    <div class="goalapp-container"> {{-- bodyの中身をフレックスボックスで囲むことでfotterを画面下に固定する。--}}
     {{-- <header></header> 直接書き込むか--}}
     {{-- @include('header')読み込むか --}}
 

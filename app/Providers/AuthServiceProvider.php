@@ -27,9 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         
         $this->registerPolicies();
-        //var_dump('email');
-        //Log::info('ログ出力てすと');
-        //return 'log test';
+        
 
         
     }
