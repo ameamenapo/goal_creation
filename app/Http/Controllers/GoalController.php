@@ -90,7 +90,9 @@ class GoalController extends Controller
         $goal_list->fill($form)->save();
         $error = "";
         $msg = "目標を作成しました";
-        return view('goal.add', compact('error','msg'));
+        $flash_message = "目標を作成しました。";
+        return redirect()->route('goal.add')->with(compact('error','msg','flash_message'));
+        //return view('goal.add', compact('error','msg'));
         }
     }
 

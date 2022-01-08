@@ -34,7 +34,7 @@ Route::post('user/logout', 'UserController@getLogout');
 
 //以下は目標一覧や目標作成などに関するルーティング
 Route::get('goal', 'GoalController@index');
-Route::get('goal/add', 'GoalController@add');
+Route::get('goal/add', 'GoalController@add')->name('goal.add');
 Route::post('goal/add', 'GoalController@create');
 Route::get('goal/edit', 'GoalController@edit')->name('goal.edit');
 Route::post('goal/edit', 'GoalController@update');

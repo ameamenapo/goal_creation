@@ -8,6 +8,12 @@
 
 @section('content')
     <div class=main-add>
+        @if (session('flash_message'))
+            <div class="alert alert-danger">
+                <p class=list-flash>{{ session('flash_message') }}</p>
+            </div>
+        @endif
+        
         <h1 class="add-title">目標を作成する</h1>
         <p class="add-msg">{{$msg}}</p>
         <p class="edit-error">{{$error}}</p>
