@@ -9,6 +9,7 @@ use Illuminate\Support\Collection; //追記。ペジネーションのために�
 use Illuminate\Pagination\LengthAwarePaginator; //追記。これもいらないかも‥。LengthAwarePaginatorインスタンス作ってないし。
 
 use Illuminate\Pagination\Paginator;//追記。ペジネーションのため。
+use Illuminate\Support\Facades\Schema;//デプロイ時のエラーを防ぐために追加
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         $url->forceScheme('https');
         
         Paginator::useBootstrap();//追記。ペジネーションをbootstrapで作成するため。
-    
+        Schema::defaultStringLength(191);//デプロイ時のエラーを防ぐために追加。
         
     }
 }
